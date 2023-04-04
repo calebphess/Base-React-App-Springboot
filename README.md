@@ -3,6 +3,7 @@ An example React application with a Java Springboot server connected to a MySQL 
 
 ## TODO
 - update readme
+- add comments to the config files to explain what they do since they are "one and done" files
 - finish config for db
 - do web config
 - do swagger config
