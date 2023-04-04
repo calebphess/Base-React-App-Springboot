@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "ThingappApplication",
+        "request": "launch",
+        "mainClass": "com.zetech.thingapp.thingapp.config.ThingappApplication",
+        "projectName": "thingapp"
+      },
+      {
+        "type": "java",
+        "name": "ThingappApplication",
+        "request": "launch",
+        "mainClass": "com.zetech.thingapp.thingapp.ThingappApplication",
+        "projectName": ""
+      },
+      {
+        "type": "java",
+        "name": "Launch Thing App",
+        "request": "launch",
+        "mainClass": "com.zetech.thingapp.thingapp",
+        "projectName": "thingapp",
+        "env": {
+          "SPRING_PROFILES_ACTIVE": "dev"
+        },
+        "console": "integratedTerminal"
+      }
+    ]
+  }
