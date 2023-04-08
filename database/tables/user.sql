@@ -7,5 +7,9 @@ CREATE TABLE user (
     password_hash VARCHAR(255) NOT NULL,
     profile_photo BLOB,
     google_id VARCHAR(255) UNIQUE,
+    created_dtg DATETIME,
+    updated_dtg DATETIME,
+    last_login_dtg DATETIME,
+    version BIGINT,
     INDEX (email)
 );
