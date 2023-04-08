@@ -5,6 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+/*  
+This is the starting point of our application, here we do lots of wizardy that I will summarize below:
+	- building out the dev environment with .env so development is easier
+	- actually starting the spring application/server
+*/
+
 @SpringBootApplication
 public class ThingappApplication {
 
