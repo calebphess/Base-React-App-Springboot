@@ -1,6 +1,5 @@
 CREATE TABLE user (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) PRIMARY KEY,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     date_of_birth DATE,
@@ -11,5 +10,6 @@ CREATE TABLE user (
     updated_dtg DATETIME,
     last_login_dtg DATETIME,
     version BIGINT,
-    INDEX (email)
+    INDEX (email),
+    INDEX (google_id)
 );

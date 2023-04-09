@@ -11,7 +11,9 @@ This is where files reside for creating the app database, as well as table creat
 - NOTE: Mysql Workbench is great for this, as you can save the login creds to the db and just import and run the .sql files
 
 ## Notes For Working With Windows
-- First, don't do this on windows.... trust me......
+- First, don't do this on windows.... trust me...... but if you install it
+- Make sure to run `sudo mysql_secure_installation` if you are installing on WSL, that won't work right away as you'll have to add a password login to the root user before you can run it which you can do by altering the root user after logging in via `sudo mysql`
+- TODO: Figure out if I'm using my windows MySQL server or the WSL one
 - Secondly wsl has all kinds of issues with netowrking
 - I had to do the following to get it to work properly
     1. `sudo service mysql stop`
