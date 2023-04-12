@@ -1,6 +1,12 @@
 # Base-React-App-Springboot
 An example React application with a Java Springboot server connected to a MySQL database
 
+## How to run
+ - install maven and JDK 20 from oracle
+ - build the war `mvn -U clean package`
+  - you may need to change the location of .env in ThingApplication.java
+ - then run `java -jar ThingApp-SNAPSHOT-VERSION.war` or whatever it's called in target
+
 ## TODO
 - update readme
 - add comments to the config files to explain what they do since they are "one and done" files
