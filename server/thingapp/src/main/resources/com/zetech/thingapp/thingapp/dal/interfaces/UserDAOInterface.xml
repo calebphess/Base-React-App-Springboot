@@ -5,43 +5,75 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 <mapper namespace="com.zetech.thingapp.thingapp.dal.interfaces.UserDAOInterface">
 
   <select id="retrieveAll" resultType="com.zetech.thingapp.thingapp.model.UserVO">
-	    SELECT * 
-	      FROM user
+		SELECT * 
+		FROM user
 	  ORDER BY email ASC
   </select>
   
   <select id="retrieveByEmail" resultType="com.zetech.thingapp.thingapp.model.UserVO">
-	    SELECT * 
-	      FROM user
-	     WHERE email=#{id}
+		SELECT * 
+		FROM user
+		WHERE email=#{id}
   </select>
   
   <select id="retrieveByGoogleId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
-	    SELECT * 
-	      FROM account
-	     WHERE google_id=#{id}
+		SELECT * 
+		FROM user
+		WHERE google_id=#{id}
   </select>
   
   <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.UserVO" keyColumn="email" keyProperty="email">
-    INSERT INTO account(ain,
-    					name,
-    					username,
-    					password_md5,
-    					password_date,
-    					created_dtg
-    					)
-    			 values(#{ain},
-    			        #{name},
-    			        #{username},
-    			        #{passwordMd5},
-    			        #{passwordDate},
-    			        #{createdDtg}
-    					)	
+    INSERT INTO user(email,
+				google_id,
+				first_name,
+				last_name,
+				date_of_birth,
+				password_hash,
+				password_date,
+				profile_photo,
+				last_login_dtg,
+				created_dtg,
+				updated_dtg,
+				updated_email,
+				version
+			)
+			values(#{email},
+				#{google_id},
+				#{first_name},
+				#{last_name},
+				#{date_of_birth},
+				#{password_hash},
+				#{password_date},
+				#{profile_photo},
+				#{last_login_dtg},
+				#{created_dtg},
+				#{updated_dtg},
+				#{updated_email},
+				#{version}
+			)	
   </insert>
 
-  <update id="updateLastLogin" parameterType="wfh.catalyst.thing.model.AccountVO">
-    UPDATE account
-       SET last_login_dtg=#{lastLoginDtg}
-     WHERE ain=#{ain}
+	<update id="update" parameterType="com.zetech.thingapp.thingapp.model.UserVO">
+    UPDATE user
+		SET google_id=#{google_id},
+			first_name=#{first_name},
+			last_name=#{last_name},
+			date_of_birth=#{date_of_birth},
+			password_hash=#{password_hash},
+			password_date=#{password_date},
+			profile_photo=#{profile_photo},
+			last_login_dtg=#{last_login_dtg},
+			created_dtg=#{created_dtg},
+			updated_dtg=#{updated_dtg},
+			updated_email=#{updated_email},
+			version=#{version}+1
+		WHERE id=#{id} AND version=#{version}
   </update>
+
+  <update id="updateLastLogin" parameterType="com.zetech.thingapp.thingapp.model.UserVO">
+    UPDATE user
+		SET last_login_dtg=#{lastLoginDtg}
+		WHERE email=#{email}
+  </update>
+
 </mapper>

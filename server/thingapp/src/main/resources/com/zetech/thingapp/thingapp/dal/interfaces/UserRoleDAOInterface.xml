@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zetech.thingapp.thingapp.dal.interfaces.UserRoleDAOInterface">
+
+  <select id="retrieveFor" resultType="com.zetech.thingapp.thingapp.model.UserRoleVO">
+    SELECT *
+    FROM user_role
+    WHERE email=#{id}
+	  ORDER BY role ASC
+  </select>
+  
+  <select id="retrieveById" resultType="com.zetech.thingapp.thingapp.model.UserRoleVO">
+    SELECT * 
+    FROM user_role
+    WHERE id=#{id}
+  </select>
+  
+  <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.UserRoleVO"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    INSERT INTO user_role(email,
+        role,                    
+        created_email, 
+        created_dtg
+      )
+      values(#{email},
+        #{role},
+        #{createdemail},
+        #{createdDtg}
+      )	
+  </insert>
+
+  <delete id="delete" parameterType="java.lang.Long">
+    DELETE FROM user_role
+    WHERE id=#{id}
+  </delete>
+  
+</mapper>

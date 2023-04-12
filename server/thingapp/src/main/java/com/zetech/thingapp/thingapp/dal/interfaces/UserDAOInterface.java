@@ -13,5 +13,7 @@ public interface UserDAOInterface {
 
   int create(UserVO record);
 
+  int update(UserVO record);
+
   int updateLastLogin(UserVO record);
 }

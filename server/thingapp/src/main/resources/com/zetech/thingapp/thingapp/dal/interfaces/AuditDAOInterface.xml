@@ -1,0 +1,54 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zetech.thingapp.thingapp.dal.interfaces.AuditDAOInterface">
+
+  <select id="retrieveAll" resultType="com.zetech.thingapp.thingapp.model.AuditVO">
+    SELECT *
+    FROM audit
+	  ORDER BY id DESC
+  </select>
+ 
+  <select id="retrieveById" resultType="com.zetech.thingapp.thingapp.model.AuditVO">
+    SELECT *
+    FROM audit
+    WHERE id=#{id}
+  </select>
+   
+  <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.AuditVO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    INSERT INTO audit(url,
+        email,
+        roles,
+        operation,
+        audit_json,
+        event_dtg    
+      )
+      values(
+        #{url},
+        #{email},
+        #{roles},
+        #{operation},
+        #{auditJson},
+        #{eventDtg}
+      )	
+  </insert>
+  
+  <update id="updateReviewed">
+    UPDATE audit
+    SET reviewed_dtg=#{reviewedDtg},
+    reviewer_email=#{reviewerAin}
+    WHERE id=#{id}
+  </update>
+  
+  <delete id="deleteReviewed">
+    DELETE FROM audit
+    WHERE reviewer_email IS NOT NULL 
+    AND reviewed_dtg IS NOT NULL
+  </delete>
+  
+  <delete id="deleteAll">
+    DELETE FROM audit
+  </delete>
+  
+</mapper>

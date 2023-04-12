@@ -1,0 +1,3 @@
+INSERT INTO user_role(email, role, created_email, created_dtg ) values("test-user@thingapp.com", "USER", "test-user@thingapp.com", "2023-04-12 19:28:14" );
+INSERT INTO user_role(email, role, created_email, created_dtg ) values("test-user@thingapp.com", "PREMIUM_USER", "test-user@thingapp.com", "2023-04-12 19:28:14" );	
+INSERT INTO user_role(email, role, created_email, created_dtg ) values("test-user@thingapp.com", "ADMINISTRATOR", "test-user@thingapp.com", "2023-04-12 19:28:14" );
