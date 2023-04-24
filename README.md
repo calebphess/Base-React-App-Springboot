@@ -21,6 +21,9 @@ You can check out the READMEs below for more information on each section
 - update readme
 - investigate [this] (https://www.javainuse.com/spring/boot-jwt) for auth
   - think about if I want to do access/refresh tokens
+  - I like single access token better where the server can just pre-emptively expire it maybe
+    - Or maybe it's a short token that the server will auto-refresh every time it's used up to a certain period
+    - this would be a jwt with a timeout timestamp and an initialLogin timestamp that goes into the user token interceptor
   - on paper this is a good idea but how do I handle auto-refreshing screens
 - fix VS Code setup so it actually works
 - add comments to the config files to explain what they do since they are "one and done" files
