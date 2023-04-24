@@ -35,3 +35,7 @@ You can check out the READMEs below for more information on each section
 - add a thing table, backend, grid with retrieveAll, retrieveAllForUser, retrieveById, create, update, delete functionality
 - add donation functionality stripe backend, a stripe token table and a donation ui
 - add basic story UI
+- create an "Authentication Service" that has it's own database optimized for managing sessions and stores users
+  - this will help to demonstrate how the UserTokenInterceptor would interact in environments that have their own existing authentication services
+  - multiple of these could be build as "Authentication Plugins" to enable deployment in any environment
+  - this works by passing some unique identifier (cert subject, session token, etc.) from the web app to the authentication service to authenticate the user
