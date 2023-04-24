@@ -6,25 +6,8 @@
         "name": "ThingappApplication",
         "request": "launch",
         "mainClass": "com.zetech.thingapp.thingapp.config.ThingappApplication",
-        "projectName": "thingapp"
-      },
-      {
-        "type": "java",
-        "name": "ThingappApplication",
-        "request": "launch",
-        "mainClass": "com.zetech.thingapp.thingapp.ThingappApplication",
-        "projectName": ""
-      },
-      {
-        "type": "java",
-        "name": "Launch Thing App",
-        "request": "launch",
-        "mainClass": "com.zetech.thingapp.thingapp",
         "projectName": "thingapp",
-        "env": {
-          "SPRING_PROFILES_ACTIVE": "dev"
-        },
-        "console": "integratedTerminal"
+        "cwd": "${workspaceFolder}/server/thingapp"
       }
     ]
   }

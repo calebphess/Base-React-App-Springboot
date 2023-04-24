@@ -21,7 +21,7 @@ public class ThingappApplication
 		// Pull environment specific credentials from the .env file
 		if (System.getenv("SPRING_PROFILES_ACTIVE") == null || System.getenv("SPRING_PROFILES_ACTIVE").equals("dev")) 
 		{
-			Dotenv dotenv = Dotenv.configure().directory("server/thingapp").load();
+			Dotenv dotenv = Dotenv.configure().directory("./").load();
 			dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 		}
 		

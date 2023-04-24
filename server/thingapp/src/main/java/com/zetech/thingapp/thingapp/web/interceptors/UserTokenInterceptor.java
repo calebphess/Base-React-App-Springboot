@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.lang.Nullable;
 
 import com.zetech.thingapp.thingapp.biz.SecurityServiceInterface;
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
@@ -44,8 +45,8 @@ public class UserTokenInterceptor implements HandlerInterceptor
   }
 
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-      ModelAndView modelAndView) throws Exception {}
+      @Nullable ModelAndView modelAndView) throws Exception {}
 
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-      Exception exception) throws Exception {}
+      @Nullable Exception exception) throws Exception {}
 }

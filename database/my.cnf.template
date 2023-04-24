@@ -1,0 +1,11 @@
+[mysqld]
+bind-address = 127.0.0.1
+user=root
+pid-file     = /var/run/mysqld/mysqld.pid
+socket       = /var/run/mysqld/mysqld.sock
+port         = 3306
+default_authentication_plugin = caching_sha2_password
+
+[client]
+port         = 3306
+socket       = /var/run/mysqld/mysqld.sock
