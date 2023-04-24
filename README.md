@@ -19,6 +19,7 @@ You can check out the READMEs below for more information on each section
 
 ## TODO
 - update readme
+- investigate [this] (https://www.javainuse.com/spring/boot-jwt) for auth
 - fix VS Code setup so it actually works
 - add comments to the config files to explain what they do since they are "one and done" files
 - [DONE] finish config for db
