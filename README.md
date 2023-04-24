@@ -20,6 +20,8 @@ You can check out the READMEs below for more information on each section
 ## TODO
 - update readme
 - investigate [this] (https://www.javainuse.com/spring/boot-jwt) for auth
+  - think about if I want to do access/refresh tokens
+  - on paper this is a good idea but how do I handle auto-refreshing screens
 - fix VS Code setup so it actually works
 - add comments to the config files to explain what they do since they are "one and done" files
 - [DONE] finish config for db
