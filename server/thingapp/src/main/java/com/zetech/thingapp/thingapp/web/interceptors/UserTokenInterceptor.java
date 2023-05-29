@@ -34,23 +34,33 @@ public class UserTokenInterceptor implements HandlerInterceptor
   // Figure out how required those are or why I don't seem to need them
 
   /*
-   * Security Notes:
-   *  - Create a /token/get endpoint that generates a token when given a username and password
-   *    - Token has a timeout of 15 minutes as well as a userID
-   *  - Create a /token/refresh endpoint that takes a token and generates a new token IFF the last login date isn't older than 24 hours
-   *  - The user token interceptor should ALWAYS validate the token AND should ALWAYS validate the last login date
+   * Security Notes (for HIGH security):
+   *  - Create a /auth/token endpoint that generates a token when given a username and password
+   *    - Token has a userID, a tokenId, an ipAddress and a createdDtg
+   *    - timeout of 15 minutes that is tracked via an auth_token database
+   *  - The user token interceptor should ALWAYS FULLY validate the token (as in all fields against the db)
    *    - This way someone can't re-generate tokens forever even if they get the token generation secret
+   *  - The difference between the auth_token and the auth_token database is that the database has a "last_used" flag with a DTG of when it was last used
+   *    - This helps us track the 15 min inactive early timeout function
+   *  - To "invalidate" an auth_token we just delete it from the database
+   * **** The following is too secure ****
    *    - If I wanted to be crazy I could also roll the token generation secret every 24 hours and have it live in the database
    *      - The downside to this is then it also has to be queried with the user every call
    *      - I could also do something where the token generation secret is it's own token that expires every 24 hours that is saved in the user table with each user
    *      - but then I would need a way to know which user was making the request so I'd have to add like a user-id to the header or something
+   * *************************************
    *    - I should at least set up a schedule for rolling the oauth token secret
+   * **** TODO: When making lots of money ****
+   *    - We should probably shift our token strategy to fit openID connect at some point
+   *    - This is not because it's more secure but instead because it makes us more compliant when integrating with other servers and api's
+   *    - That said, I would avoid revamping this until that day comes because IMO OpenID connect is a poorly thought out standard
+   * *****************************************
    *    - There's a good article on making JWTs more secure here https://pragmaticwebsecurity.com/articles/apisecurity/hard-parts-of-jwt.html
    *      - Notes from this article:
    *        - It's a good idea to be able to invalidate users regardless of their token, probably by deactivating their account in the event of "suspicious activity" thorugh an "is_active" key
-   *          - Not a flag so you can store the key in the token and invalidate it when the key is null or is different
+   *          - This would actually live in the user table as an "active" flag
    *        - Client side tokens should be stored as cookies
-   *        - TLS should be a requirement
+   *        - TLS should obviously be a requirement
    *    - Another interesting article here https://www.jessym.com/articles/stateless-oauth2-social-logins-with-spring-boot#stateless-sessions-recurring
    *  - Security is hard...
   */
