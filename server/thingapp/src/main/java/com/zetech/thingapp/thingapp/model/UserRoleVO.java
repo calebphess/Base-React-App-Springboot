@@ -7,9 +7,9 @@ import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
 public class UserRoleVO
 {
   private Long _id;
-  private String _email;
+  private String _userId;
   private ApplicationRoles _role;
-  private String _createdEmail;
+  private String _createdUserId;
   private Date _createdDtg;
 
   public Long getId()
@@ -22,14 +22,14 @@ public class UserRoleVO
     _id = id;
   }
 
-  public String getEmail()
+  public String getUserId()
   {
-    return _email;
+    return _userId;
   }
 
-  public void setEmail(String email)
+  public void setUserId(String userId)
   {
-    _email = email;
+    _userId = userId;
   }
 
   public ApplicationRoles getRole()
@@ -57,14 +57,14 @@ public class UserRoleVO
     _role = role;
   }
 
-  public String getCreatedEmail()
+  public String getCreatedUserId()
   {
-    return _createdEmail;
+    return _createdUserId;
   }
 
-  public void setCreatedEmail(String CreatedEmail)
+  public void setCreatedUserId(String createdUserId)
   {
-    _createdEmail = CreatedEmail;
+    _createdUserId = createdUserId;
   }
 
   public Date getCreatedDtg()

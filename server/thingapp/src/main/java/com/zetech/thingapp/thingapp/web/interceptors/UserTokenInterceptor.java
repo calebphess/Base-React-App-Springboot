@@ -11,8 +11,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.lang.Nullable;
 
+import com.zetech.thingapp.thingapp.biz.AuthServiceInterface;
 import com.zetech.thingapp.thingapp.biz.SecurityServiceInterface;
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
+import com.zetech.thingapp.thingapp.exceptions.NotAuthorizedException;
+import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
 
@@ -29,6 +32,9 @@ public class UserTokenInterceptor implements HandlerInterceptor
 {
   @Autowired
   private SecurityServiceInterface _securityService;
+
+  @Autowired
+  private AuthServiceInterface _authService;
 
   //TODO: Source code I found this in had @Overrides statements above these methods
   // Figure out how required those are or why I don't seem to need them
@@ -65,21 +71,38 @@ public class UserTokenInterceptor implements HandlerInterceptor
    *  - Security is hard...
   */
 
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ThingAppException
   {
-    Set<ApplicationRoles> roles = _securityService.authorize("test-user@thingapp.com", new SystemToken());
-    
-    // NOTE for a business email would actually be an employee ID
-    // employee ID and roles would com from PKI
-    UserToken token = new UserToken("test-user@thingapp.com", roles);
+    // check if the user is trying to log in, if so allow them to hit the auth endpoint without generating a user token
+    String uri = request.getRequestURI();
+    System.out.println("URI: " + uri);
+    if(uri.contentEquals("thingapp/api/auth/token") || uri.contentEquals("thingapp/api/auth/token")) 
+    {
+      return true;
+    }
+    else if(uri.matches("thingapp/api/*")) 
+    {
+      // Call the auth
+      String userId = _authService.authenticate(request.getHeader("Authorization"));
 
-    request.getSession().setAttribute("TOKEN", token);
-    return true;
+      Set<ApplicationRoles> roles = _securityService.authorize("test-user@thingapp.com", new SystemToken());
+      
+      // NOTE for a business email would actually be an employee ID
+      // employee ID and roles would com from PKI
+      UserToken token = new UserToken(userId, roles);
+
+      request.getSession().setAttribute("TOKEN", token);
+      return true;
+    }
+    else 
+    {
+      return true;
+    }
   }
 
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-      @Nullable ModelAndView modelAndView) throws Exception {}
+      @Nullable ModelAndView modelAndView) throws ThingAppException {}
 
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-      @Nullable Exception exception) throws Exception {}
+      @Nullable Exception exception) throws ThingAppException {}
 }

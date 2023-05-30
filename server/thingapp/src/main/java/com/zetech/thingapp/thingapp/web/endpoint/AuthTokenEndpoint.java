@@ -3,7 +3,6 @@ package com.zetech.thingapp.thingapp.web.endpoint;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +12,9 @@ import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.EncryptedAuthTokenVO;
 
-// This service is different from the others as it's the only service that you don't need a user token to call
-// This is because this service creates an auth token by "logging you in" so that future requests can create the user token
+// This is the core authentication endpoint
+// This endpoint is different from the others as it's the only service that you don't need a user token to call
+// This is because this endpoint creates an auth token by "logging you in" so that future requests can create the user token
 @RestController
 public class AuthTokenEndpoint extends BaseRESTEndpoint
 {

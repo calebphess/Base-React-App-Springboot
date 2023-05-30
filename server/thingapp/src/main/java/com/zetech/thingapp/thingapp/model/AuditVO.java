@@ -8,13 +8,13 @@ public class AuditVO
 {
   private Long _id;
   private String _url;
-  private String _email;
+  private String _userId;
   private String _roles;
   private CRUDOperation _operation;
   private String _auditJson;
   private Date _eventDtg;
   private Date _reviewedDtg;
-  private String _reviewerEmail;
+  private String _reviewerUserId;
 
   public Long getId()
   {
@@ -36,14 +36,14 @@ public class AuditVO
     _url = url;
   }
 
-  public String getEmail()
+  public String getUserId()
   {
-    return _email;
+    return _userId;
   }
 
-  public void setEmail(String email)
+  public void setUserId(String userId)
   {
-    _email = email;
+    _userId = userId;
   }
 
   public String getRoles()
@@ -96,14 +96,14 @@ public class AuditVO
     _reviewedDtg = reviewedDtg;
   }
 
-  public String getReviewerEmail()
+  public String getReviewerUserId()
   {
-    return _reviewerEmail;
+    return _reviewerUserId;
   }
 
-  public void setReviewerEmail(String reviewerEmail)
+  public void setReviewerEmail(String reviewerUserId)
   {
-    _reviewerEmail = reviewerEmail;
+    _reviewerUserId = reviewerUserId;
   }
 
 }

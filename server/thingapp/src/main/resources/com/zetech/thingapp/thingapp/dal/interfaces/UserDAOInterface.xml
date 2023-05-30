@@ -7,13 +7,13 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   <select id="retrieveAll" resultType="com.zetech.thingapp.thingapp.model.UserVO">
 		SELECT * 
 		FROM user
-	  ORDER BY email ASC
+	  ORDER BY user_id ASC
   </select>
   
-  <select id="retrieveByEmail" resultType="com.zetech.thingapp.thingapp.model.UserVO">
+  <select id="retrieveByUserId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
 		SELECT * 
 		FROM user
-		WHERE email=#{id}
+		WHERE user_id=#{id}
   </select>
   
   <select id="retrieveByGoogleId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
@@ -23,7 +23,8 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   </select>
   
   <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.UserVO" keyColumn="email" keyProperty="email">
-    INSERT INTO user(email,
+    INSERT INTO user(user_id,
+				email,
 				google_id,
 				first_name,
 				last_name,
@@ -34,10 +35,10 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 				last_login_dtg,
 				created_dtg,
 				updated_dtg,
-				updated_email,
 				version
 			)
-			values(#{email},
+			values(#{userId},
+				#{email},
 				#{google_id},
 				#{first_name},
 				#{last_name},
@@ -48,7 +49,6 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 				#{last_login_dtg},
 				#{created_dtg},
 				#{updated_dtg},
-				#{updated_email},
 				#{version}
 			)	
   </insert>
@@ -65,7 +65,6 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 			last_login_dtg=#{last_login_dtg},
 			created_dtg=#{created_dtg},
 			updated_dtg=#{updated_dtg},
-			updated_email=#{updated_email},
 			version=#{version}+1
 		WHERE id=#{id} AND version=#{version}
   </update>
@@ -73,7 +72,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   <update id="updateLastLogin" parameterType="com.zetech.thingapp.thingapp.model.UserVO">
     UPDATE user
 		SET last_login_dtg=#{lastLoginDtg}
-		WHERE email=#{email}
+		WHERE user_id=#{userId}
   </update>
 
 </mapper>

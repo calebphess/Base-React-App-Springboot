@@ -7,7 +7,7 @@ import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
 
 public class UserToken 
 {
-  private String _email;
+  private String _userId;
   private String _authTokenId;
   private Set<ApplicationRoles> _roles = new TreeSet<>();
 
@@ -18,17 +18,17 @@ public class UserToken
   }
 
   // constructor for the user token interceptor to create the usertoken from the auth token
-  public UserToken(String email, String authTokenId, Set<ApplicationRoles> roles)
+  public UserToken(String userId, String authTokenId, Set<ApplicationRoles> roles)
   {
-    _email = email;
+    _userId = userId;
     _authTokenId = authTokenId;
     _roles.addAll(roles);
   }
 
   // consturctor for if we want to do something on behalf of a user
-  public UserToken(String email, Set<ApplicationRoles> roles)
+  public UserToken(String userId, Set<ApplicationRoles> roles)
   {
-    _email = email;
+    _userId = userId;
     _roles.addAll(roles);
   }
 
@@ -37,9 +37,9 @@ public class UserToken
     return _authTokenId;
   }
 
-  public String getEmail()
+  public String getUserId()
   {
-    return _email;
+    return _userId;
   }
 
   public boolean hasRole(ApplicationRoles role)

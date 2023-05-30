@@ -1,40 +1,49 @@
-// package com.zetech.thingapp.thingapp.config;
+package com.zetech.thingapp.thingapp.config;
 
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-// import springfox.documentation.builders.ApiInfoBuilder;
-// import springfox.documentation.builders.PathSelectors;
-// import springfox.documentation.builders.RequestHandlerSelectors;
-// import springfox.documentation.service.ApiInfo;
-// import springfox.documentation.spi.DocumentationType;
-// import springfox.documentation.spring.web.plugins.Docket;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
-// /*
-//  * This config enables us to autmagically set up swagger on all of our endpoints
-//  */
+@Configuration
 
-//  // TODO: get this working
+// TODO: make api version, production url, and tos url all env variables from .env
+// TODO: add real email and license and tos
+@OpenAPIDefinition(
+    info = @Info(
+        title = "Thing App API", 
+        version = "1", 
+        contact = @Contact(name = "Penn Hess", email = "pennhess@thingapp.com", url = "https://github.com/calebphess"),
+        license = @License(name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0"),
+        termsOfService = "https://www.thingapp.com/tos",
+        description = "Thing App REST API"
+    ),
+    servers = {
+        // thingapp is required here for dev or the swagger docs won't call the proper API URLs
+        @Server(url = "http://localhost:8080/thingapp", description = "Development"),
+        @Server(url = "https://www.thingapp.com", description = "Production")
+    }
+)
 
-// @Configuration
-// // @ConditionalOnProperty(value = "springfox.documentation.enabled", havingValue = "true", matchIfMissing = true)
-// public class SwaggerConfiguration {
-//     @Bean
-//     public Docket createRestApi() {
-//         return new Docket(DocumentationType.OAS_30)
-//                 .apiInfo(apiInfo())
-//                 .select()
-//                 .apis(RequestHandlerSelectors.basePackage("com.zetech.thingapp.thingapp.web.endpoint"))
-//                 .paths(PathSelectors.regex("/.*"))
-//                 .build();
-//     }
-
-//     private ApiInfo apiInfo() {
-//         return new ApiInfoBuilder()
-//           .title("Thing App REST API")
-//           .description("Thing App REST API")
-//           // .contact(new Contact("Penn Hess", "https://github.com/calebphess", "pennhess@thingapp.com"))
-//           .version("1.0.0")
-//           .build();
-//     }
-// }
+public class SwaggerConfiguration 
+{
+    @Bean
+    public OpenAPI customizeOpenAPI() 
+    {
+        final String securitySchemeName = "bearerAuth";
+        return new OpenAPI().addSecurityItem(
+            new SecurityRequirement().addList(securitySchemeName)).components(
+                new Components().addSecuritySchemes(securitySchemeName,
+                    new SecurityScheme().name(securitySchemeName).type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
+                )
+            );
+    }
+}

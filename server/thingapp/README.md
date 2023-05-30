@@ -12,6 +12,8 @@ This is a base Java Springboot 3 application that demonstrates how to build a fu
      - See the database section [here](../../database/README.md)
 4. Create a .env file in this directory with your database connection information
      - You can see an example of this in the []`.env.template`](.env.template) file provided
+     - I recommend if you are running off of a local database that you use `DB_HOST=localhost`
+          - I have encountered some wierd issues trying to use loopback `127.0.0.1`
 
 ### Running the server
 IMPORTANT: There are loads of better ways to do this. I recommend at least some sort of IDE setup. But this will work every time with the bare minimum amount of setup.

@@ -23,4 +23,7 @@ public interface AuthServiceInterface
   @Transactional(rollbackFor = Throwable.class)
   int delete(UserToken token,  HttpServletRequest request) throws ThingAppException;
 
+  @Transactional(rollbackFor = Throwable.class)
+  String authenticate(String token) throws ThingAppException;
+
 }
