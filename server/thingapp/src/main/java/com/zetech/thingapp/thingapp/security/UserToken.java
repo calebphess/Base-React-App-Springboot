@@ -29,7 +29,10 @@ public class UserToken
   public UserToken(String userId, Set<ApplicationRoles> roles)
   {
     _userId = userId;
-    _roles.addAll(roles);
+    if (null != roles)
+    {
+      _roles.addAll(roles);
+    }
   }
 
   public String getAuthTokenId()

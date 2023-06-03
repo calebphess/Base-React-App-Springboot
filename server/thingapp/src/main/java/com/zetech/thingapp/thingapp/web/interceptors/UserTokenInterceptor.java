@@ -14,7 +14,6 @@ import org.springframework.lang.Nullable;
 import com.zetech.thingapp.thingapp.biz.AuthServiceInterface;
 import com.zetech.thingapp.thingapp.biz.SecurityServiceInterface;
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
-import com.zetech.thingapp.thingapp.exceptions.NotAuthorizedException;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
@@ -75,14 +74,16 @@ public class UserTokenInterceptor implements HandlerInterceptor
   {
     // check if the user is trying to log in, if so allow them to hit the auth endpoint without generating a user token
     String uri = request.getRequestURI();
-    System.out.println("URI: " + uri);
-    if(uri.contentEquals("thingapp/api/auth/token") || uri.contentEquals("thingapp/api/auth/token")) 
+    if(isPublic(uri)) 
     {
+      UserToken token = new UserToken("UNAUTHENTICATED_USER", null);
+      request.getSession().setAttribute("TOKEN", token);
       return true;
     }
-    else if(uri.matches("thingapp/api/*")) 
+    else
     {
-      // Call the auth
+      // TODO: investigate this to make sure we don't get 500s somewhere instead of 401s
+      // Call the authentication service
       String userId = _authService.authenticate(request.getHeader("Authorization"));
 
       Set<ApplicationRoles> roles = _securityService.authorize("test-user@thingapp.com", new SystemToken());
@@ -94,10 +95,6 @@ public class UserTokenInterceptor implements HandlerInterceptor
       request.getSession().setAttribute("TOKEN", token);
       return true;
     }
-    else 
-    {
-      return true;
-    }
   }
 
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -105,4 +102,30 @@ public class UserTokenInterceptor implements HandlerInterceptor
 
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
       @Nullable Exception exception) throws ThingAppException {}
+
+  private boolean isPublic(String uri)
+  {
+
+    // list of public URIs
+    String[] publicUris = {
+      "/thingapp/api/auth/token",
+      "/thingapp/api-docs",
+      "/thingapp/v3/api-docs",
+      "/thingapp/v3/api-docs/.*",
+      "/thingapp/swagger-ui/.*",
+      "/thingapp/error"
+    };
+
+    // build the regex string to check for a matching URI
+    String publicUriRegex = "(?:)";
+
+    for (String publicUri : publicUris) 
+    {
+      publicUriRegex += "|(?:" + publicUri + ")";
+    }
+
+    // return whether the provided URI mataches a public URI or not
+    return uri.matches(publicUriRegex);
+
+  }
 }

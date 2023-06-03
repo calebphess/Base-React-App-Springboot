@@ -46,7 +46,7 @@ public class AuthService implements AuthServiceInterface
       throw new NotAuthorizedException("User is not logged in.");
     }
     // if the token is invalid, throw not authorized
-    else if(!token.contentEquals("TEST_TOKEN")) 
+    else if(!token.contentEquals("Bearer " + "TEST_TOKEN")) 
     {
       throw new NotAuthorizedException("User auth token is invalid");
     }
