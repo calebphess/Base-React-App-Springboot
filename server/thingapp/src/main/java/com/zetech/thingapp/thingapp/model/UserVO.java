@@ -5,6 +5,7 @@ import java.util.Date;
 // TODO: convert passwordDate and DOB to just be DATE and not DATETIME
 
 public class UserVO {
+  private String _userId;
   private String _email;
   private String _googleId;
   private String _firstName;
@@ -16,8 +17,17 @@ public class UserVO {
   private Date _lastLoginDtg;
   private Date _createdDtg;
   private Date _updatedDtg;
-  private String _updatedEmail;
   private Long _version;
+
+  public String getUserId()
+  {
+    return _userId;
+  }
+
+  public void setUserId(String userId)
+  {
+    _userId = userId;
+  }
 
   public String getPasswordHash()
   {
@@ -127,16 +137,6 @@ public class UserVO {
   public void setUpdatedDtg(Date updatedDtg)
   {
     _updatedDtg = updatedDtg;
-  }
-
-  public String getUpdatedEmail()
-  {
-    return _updatedEmail;
-  }
-
-  public void setUpdatedEmail(String updatedEmail)
-  {
-    _updatedEmail = updatedEmail;
   }
 
   public Long getVersion()

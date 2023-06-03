@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   <select id="retrieveFor" resultType="com.zetech.thingapp.thingapp.model.UserRoleVO">
     SELECT *
     FROM user_role
-    WHERE email=#{id}
+    WHERE user_id=#{id}
 	  ORDER BY role ASC
   </select>
   
@@ -18,14 +18,14 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   </select>
   
   <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.UserRoleVO"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-    INSERT INTO user_role(email,
+    INSERT INTO user_role(user_id,
         role,                    
-        created_email, 
+        created_user_id, 
         created_dtg
       )
       values(#{email},
         #{role},
-        #{createdemail},
+        #{createdUserId},
         #{createdDtg}
       )	
   </insert>

@@ -22,15 +22,15 @@ public class UserRoleService implements UserRoleServiceInterface
   private UserRoleDAOInterface _dao;
 
   @Override
-  public List<UserRoleVO> retrieveFor(String email, UserToken token) throws ThingAppException
+  public List<UserRoleVO> retrieveFor(String userId, UserToken token) throws ThingAppException
   {
     try
     {
-      if (!token.getEmail().contentEquals(email) && token.missingRole(ApplicationRoles.ADMINISTRATOR))
+      if (!token.getUserId().contentEquals(userId) && token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
         throw new NotAuthorizedException("You do not have permissions to access roles for this user");
       }
-      return _dao.retrieveFor(email);
+      return _dao.retrieveFor(userId);
     }
     catch (ThingAppException e)
     {
@@ -38,7 +38,7 @@ public class UserRoleService implements UserRoleServiceInterface
     }
     catch (Throwable e)
     {
-      throw new FatalBeanException("Error retrieving roles for user: " + email + ".");
+      throw new FatalBeanException("Error retrieving roles for user: " + userId + ".");
     }
   }
 
@@ -52,7 +52,7 @@ public class UserRoleService implements UserRoleServiceInterface
       {
         throw new NoDataFoundException("User role not found for id: " + id  + ".");
       }
-      if (!data.getEmail().contentEquals(token.getEmail()) && token.missingRole(ApplicationRoles.ADMINISTRATOR))
+      if (!data.getUserId().contentEquals(token.getUserId()) && token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
         throw new NotAuthorizedException("You do not have permission to access roles for this user.");
       }
@@ -80,7 +80,7 @@ public class UserRoleService implements UserRoleServiceInterface
       }
       // email is fk, role is enum, not much point in validating null
 
-      record.setCreatedEmail(token.getEmail());
+      record.setCreatedUserId(token.getUserId());
       record.setCreatedDtg(new Date());
       int ok = _dao.create(record);
       if (1 != ok)

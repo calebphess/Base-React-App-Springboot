@@ -2,8 +2,8 @@
 This is where files reside for creating the app database, as well as table creation scripts and eventually version migration scripts as well.
 
 ## Getting Started
-- Install mysql server wherever you want to run it (I am using Mysql server 8.0.32)
-- Run the database setup script, replace the place-holder password with the actuall password you want for your app user
+- Install mysql server wherever you want to run it (I am using Mysql server 8.0.32) which can be found here: https://dev.mysql.com/downloads/mysql/
+- Run the database setup script, replace the place-holder password with the actual password you want for your app user
 - Then you can run all the scripts in the tables folder
     - These scripts assume "USE thingappdb;" has already been set
 - The server needs to be running and configured properly for the server to come up

@@ -1,5 +1,6 @@
 CREATE TABLE user (
-    email VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
     google_id VARCHAR(255) UNIQUE,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255),
@@ -10,8 +11,7 @@ CREATE TABLE user (
     last_login_dtg DATETIME,
     created_dtg DATETIME NOT NULL,
     updated_dtg DATETIME NOT NULL,
-    updated_email VARCHAR(255) NOT NULL,
     version BIGINT NOT NULL,
-    INDEX (email),
+    INDEX (user_id),
     INDEX (google_id)
 );

@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
    
   <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.AuditVO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
     INSERT INTO audit(url,
-        email,
+        user_id,
         roles,
         operation,
         audit_json,
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
       )
       values(
         #{url},
-        #{email},
+        #{userId},
         #{roles},
         #{operation},
         #{auditJson},
@@ -37,13 +37,13 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
   <update id="updateReviewed">
     UPDATE audit
     SET reviewed_dtg=#{reviewedDtg},
-    reviewer_email=#{reviewerAin}
+    reviewer_user_id=#{reviewerUserId}
     WHERE id=#{id}
   </update>
   
   <delete id="deleteReviewed">
     DELETE FROM audit
-    WHERE reviewer_email IS NOT NULL 
+    WHERE reviewer_user_id IS NOT NULL 
     AND reviewed_dtg IS NOT NULL
   </delete>
   

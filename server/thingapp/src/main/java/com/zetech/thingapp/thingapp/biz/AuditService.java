@@ -77,7 +77,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UNCAUGHT_ERROR);
       audit.setAuditJson(makeJSON(error));
@@ -97,7 +97,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_ALL);
       audit.setAuditJson(makeJSON(records));
@@ -116,7 +116,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_FOR);
       audit.setAuditJson(makeJSON(id, data));
@@ -135,7 +135,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_BY_ID);
       audit.setAuditJson(makeJSON(id, data));
@@ -154,7 +154,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);
       audit.setAuditJson(makeJSON(data));
@@ -173,7 +173,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UPDATE);
       audit.setAuditJson(makeJSON(data));
@@ -192,7 +192,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.DELETE);
       audit.setAuditJson(makeJSON(idOrRec));
@@ -211,7 +211,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UPDATE);
       audit.setAuditJson(makeJSON(error, data));
@@ -230,7 +230,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_ALL);
       audit.setAuditJson(makeJSON(error));
@@ -249,7 +249,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_FOR);
       audit.setAuditJson(makeJSON(error, id));
@@ -268,7 +268,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_BY_ID);
       audit.setAuditJson(makeJSON(error, id));
@@ -287,7 +287,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);
       audit.setAuditJson(makeJSON(error, data));
@@ -306,7 +306,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
-      audit.setEmail(token.getEmail());
+      audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);
       audit.setAuditJson(makeJSON(error, idOrRec));
@@ -347,7 +347,7 @@ public class AuditService implements AuditServiceInterface
       ValidationErrors errors = new ValidationErrors();
 
       StringContentValidator.validate(record.getUrl(), "url", "URL", true, 1000, errors);
-      StringContentValidator.validate(record.getEmail(), "email", "EMAIL", true, 255, errors);
+      StringContentValidator.validate(record.getUserId(), "userId", "User ID", true, 255, errors);
       StringContentValidator.validate(record.getRoles(), "roles", "Roles", true, 1000, errors);
       StringContentValidator.validate(record.getAuditJson(), "auditJson", "Audit JSON", true, 1000000, errors);
       if (null == record.getOperation())
@@ -415,7 +415,7 @@ public class AuditService implements AuditServiceInterface
       }
 
       record.setReviewedDtg(new Date());
-      record.setReviewerEmail(token.getEmail());
+      record.setReviewerEmail(token.getUserId());
 
       int ok = _dao.updateReviewed(record);
       if (1 != ok)
