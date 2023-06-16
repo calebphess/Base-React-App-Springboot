@@ -9,10 +9,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * If you don't ever plan on doing this and only want to use embedded tomcat you can just delete this file
 */
 
-public class ServletInitializer extends SpringBootServletInitializer {
+public class ServletInitializer extends SpringBootServletInitializer 
+{
 
 	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) 
+	{
 		return application.sources(ThingappApplication.class);
 	}
 

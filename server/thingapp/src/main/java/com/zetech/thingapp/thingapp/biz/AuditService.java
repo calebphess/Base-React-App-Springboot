@@ -77,6 +77,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UNCAUGHT_ERROR);
@@ -97,6 +98,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_ALL);
@@ -116,6 +118,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_FOR);
@@ -135,6 +138,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_BY_ID);
@@ -154,6 +158,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);
@@ -173,6 +178,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UPDATE);
@@ -192,6 +198,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.DELETE);
@@ -211,6 +218,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.UPDATE);
@@ -230,6 +238,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_ALL);
@@ -249,6 +258,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_FOR);
@@ -268,6 +278,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.RETRIEVE_BY_ID);
@@ -287,6 +298,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);
@@ -306,6 +318,7 @@ public class AuditService implements AuditServiceInterface
     {
       AuditVO audit = new AuditVO();
       audit.setUrl(url);
+      audit.setSourceIp(token.getIpAddress());
       audit.setUserId(token.getUserId());
       audit.setRoles(token.getRoles().toString());
       audit.setOperation(CRUDOperation.CREATE);

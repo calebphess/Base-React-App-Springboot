@@ -74,9 +74,10 @@ public class UserTokenInterceptor implements HandlerInterceptor
   {
     // check if the user is trying to log in, if so allow them to hit the auth endpoint without generating a user token
     String uri = request.getRequestURI();
+    String clientIp = request.getRemoteAddr();
     if(isPublic(uri)) 
     {
-      UserToken token = new UserToken("UNAUTHENTICATED_USER", null);
+      UserToken token = new UserToken("UNAUTHENTICATED_USER", clientIp, null);
       request.getSession().setAttribute("TOKEN", token);
       return true;
     }
@@ -90,7 +91,7 @@ public class UserTokenInterceptor implements HandlerInterceptor
       
       // NOTE for a business email would actually be an employee ID
       // employee ID and roles would com from PKI
-      UserToken token = new UserToken(userId, roles);
+      UserToken token = new UserToken(userId, clientIp, roles);
 
       request.getSession().setAttribute("TOKEN", token);
       return true;

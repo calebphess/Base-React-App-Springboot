@@ -28,11 +28,13 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
     ),
     servers = {
         // thingapp is required here for dev or the swagger docs won't call the proper API URLs
-        @Server(url = "http://localhost:8080/thingapp", description = "Development"),
+        @Server(url = "https://localhost:8443/thingapp", description = "Development"),
         @Server(url = "https://www.thingapp.com", description = "Production")
     }
 )
 
+// This is here for swagger to know to authenticate all endpoints with a bearer token
+// TODO: See if I can add username/password authentication to generate the token
 public class SwaggerConfiguration 
 {
     @Bean

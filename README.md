@@ -3,9 +3,9 @@ An example React application with a Java Springboot server connected to a MySQL 
 
 ## Getting Started
 You can check out the READMEs below for more information on each section
+  - [Database](database/README.md)
   - [Server](server/thingapp/README.md)
   - [UI ***WIP***](ui/thing-app/README.md)
-  - [Database](database/README.md)
 
 ## IDE Recommendations
 - VS Code

@@ -9,6 +9,7 @@ public class UserToken
 {
   private String _userId;
   private String _authTokenId;
+  private String _ipAddress;
   private Set<ApplicationRoles> _roles = new TreeSet<>();
 
   @SuppressWarnings("unused")
@@ -18,17 +19,19 @@ public class UserToken
   }
 
   // constructor for the user token interceptor to create the usertoken from the auth token
-  public UserToken(String userId, String authTokenId, Set<ApplicationRoles> roles)
+  public UserToken(String userId, String authTokenId, String ipAddress, Set<ApplicationRoles> roles)
   {
     _userId = userId;
     _authTokenId = authTokenId;
+    _ipAddress = ipAddress;
     _roles.addAll(roles);
   }
 
   // consturctor for if we want to do something on behalf of a user
-  public UserToken(String userId, Set<ApplicationRoles> roles)
+  public UserToken(String userId, String ipAddress, Set<ApplicationRoles> roles)
   {
     _userId = userId;
+    _ipAddress = ipAddress;
     if (null != roles)
     {
       _roles.addAll(roles);
@@ -43,6 +46,11 @@ public class UserToken
   public String getUserId()
   {
     return _userId;
+  }
+
+  public String getIpAddress()
+  {
+    return _ipAddress;
   }
 
   public boolean hasRole(ApplicationRoles role)

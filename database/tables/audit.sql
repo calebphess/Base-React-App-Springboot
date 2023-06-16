@@ -8,6 +8,7 @@ CREATE TABLE audit (
     event_dtg DATETIME NOT NULL,
     reviewed_dtg DATETIME,
     reviewer_user_id VARCHAR(255),
+    source_ip VARCHAR(50),
     INDEX (user_id),
     INDEX (reviewer_user_id)
 );

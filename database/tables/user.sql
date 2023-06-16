@@ -1,5 +1,5 @@
 CREATE TABLE user (
-    user_id VARCHAR(255) PRIMARY KEY,
+    user_id VARCHAR(45) PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     google_id VARCHAR(255) UNIQUE,
     first_name VARCHAR(255) NOT NULL,

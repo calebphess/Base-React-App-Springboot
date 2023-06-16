@@ -22,7 +22,8 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
         roles,
         operation,
         audit_json,
-        event_dtg    
+        event_dtg,
+        source_ip    
       )
       values(
         #{url},
@@ -30,7 +31,8 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
         #{roles},
         #{operation},
         #{auditJson},
-        #{eventDtg}
+        #{eventDtg},
+        #{sourceIp}
       )	
   </insert>
   

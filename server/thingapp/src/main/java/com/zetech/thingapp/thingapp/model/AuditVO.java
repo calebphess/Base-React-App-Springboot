@@ -15,6 +15,7 @@ public class AuditVO
   private Date _eventDtg;
   private Date _reviewedDtg;
   private String _reviewerUserId;
+  private String _sourceIp;
 
   public Long getId()
   {
@@ -34,6 +35,16 @@ public class AuditVO
   public void setUrl(String url)
   {
     _url = url;
+  }
+
+  public String getSourceIp()
+  {
+    return _sourceIp;
+  }
+
+  public void setSourceIp(String sourceIp)
+  {
+    _sourceIp = sourceIp;
   }
 
   public String getUserId()

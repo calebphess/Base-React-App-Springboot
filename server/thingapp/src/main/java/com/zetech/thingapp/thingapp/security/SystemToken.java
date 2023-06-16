@@ -17,7 +17,7 @@ public final class SystemToken extends UserToken
   public SystemToken()
   {
     // since email is our primary user ID here I want to make it appear valid by giving it the ID of SYSTEM@<Application Name>.com
-    super("SYSTEM@thingapp.com", makeRoles());
+    super("SYSTEM@thingapp.com", "0.0.0.0", makeRoles());
   }
 
   // Here we give the system user every available role
