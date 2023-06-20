@@ -29,6 +29,7 @@ import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.AuthResponse;
 import com.zetech.thingapp.thingapp.model.UserPasswordVO;
+import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
 
@@ -42,6 +43,9 @@ public class AuthService implements AuthServiceInterface
 
   @Autowired
   private UserPasswordServiceInterface _userPasswordService;
+
+  @Autowired
+  private UserService _userService;
 
   public AuthResponse create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
   {
@@ -69,6 +73,13 @@ public class AuthService implements AuthServiceInterface
       throw new NotAuthorizedException("Login Failed: Username or password invalid.");
     }
 
+    UserVO user = _userService.retrieveByEmail(record.getUserLoginId(), token);
+
+    if(null == user) 
+    {
+      throw new NotAuthorizedException("Error: User not found.");
+    }
+
     // this is our logic to check the password with bcrypt
     Verifyer verifier = BCrypt.verifyer();
 
@@ -86,7 +97,7 @@ public class AuthService implements AuthServiceInterface
       // and a random UUID for the token id
       // signed with our private key
       String jwtToken = Jwts.builder()
-        .setSubject("testuser")
+        .setSubject(user.getUserId())
         .setId(UUID.randomUUID().toString())
         .setIssuedAt(now)
         .setExpiration(expiration)

@@ -15,6 +15,12 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 		FROM user
 		WHERE user_id=#{id}
   </select>
+
+	<select id="retrieveByEmail" resultType="com.zetech.thingapp.thingapp.model.UserVO">
+		SELECT * 
+		FROM user
+		WHERE email=#{id}
+  </select>
   
   <select id="retrieveByGoogleId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
 		SELECT * 
