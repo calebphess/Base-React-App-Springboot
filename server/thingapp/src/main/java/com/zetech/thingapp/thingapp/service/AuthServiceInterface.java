@@ -1,4 +1,4 @@
-package com.zetech.thingapp.thingapp.biz;
+package com.zetech.thingapp.thingapp.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 

@@ -11,12 +11,12 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.lang.Nullable;
 
-import com.zetech.thingapp.thingapp.biz.AuthServiceInterface;
-import com.zetech.thingapp.thingapp.biz.SecurityServiceInterface;
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
+import com.zetech.thingapp.thingapp.service.AuthServiceInterface;
+import com.zetech.thingapp.thingapp.service.SecurityServiceInterface;
 
 /*
  * This is the core piece to all of our applications security

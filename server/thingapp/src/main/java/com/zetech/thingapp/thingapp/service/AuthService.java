@@ -1,11 +1,11 @@
-package com.zetech.thingapp.thingapp.biz;
+package com.zetech.thingapp.thingapp.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.crypto.bcrypt.BCrypt.Hasher;
 import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +28,8 @@ import com.zetech.thingapp.thingapp.exceptions.NotAuthorizedException;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.AuthResponse;
+import com.zetech.thingapp.thingapp.model.UserPasswordVO;
+import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
 
 
@@ -37,6 +39,9 @@ public class AuthService implements AuthServiceInterface
 
   private static final int timeout_seconds = 86400;
   private static final String token_type = "Bearer";
+
+  @Autowired
+  private UserPasswordServiceInterface _userPasswordService;
 
   public AuthResponse create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
   {
@@ -54,13 +59,20 @@ public class AuthService implements AuthServiceInterface
       throw new FatalException("Error getting private key", e);
     }
 
+    // get the password hash on behalf of the system
+    SystemToken token = new SystemToken();
+
+    UserPasswordVO userPasswordVO = _userPasswordService.retrieveByEmail(record.getUserLoginId(), token);
+
+    if(null == userPasswordVO) 
+    {
+      throw new NotAuthorizedException("Login Failed: Username or password invalid.");
+    }
+
     // this is our logic to check the password with bcrypt
-    Hasher encrypter = BCrypt.withDefaults();
     Verifyer verifier = BCrypt.verifyer();
 
-    String testPassword = "password";
-    String passwordHash = encrypter.hashToString(12, testPassword.toCharArray());
-    Boolean passwordMatch = verifier.verify(record.getUserPassword().toCharArray(), passwordHash).verified;
+    Boolean passwordMatch = verifier.verify(record.getUserPassword().toCharArray(), userPasswordVO.getPasswordHash()).verified;
 
     if(passwordMatch) 
     {

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zetech.thingapp.thingapp.biz.AuditServiceInterface;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuditVO;
+import com.zetech.thingapp.thingapp.service.AuditServiceInterface;
 
 @RestController
 public class AuditEndpoint extends BaseRESTEndpoint

@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.zetech.thingapp.thingapp.biz.AuditServiceInterface;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.exceptions.ValidationFailedException;
 import com.zetech.thingapp.thingapp.security.UserToken;
+import com.zetech.thingapp.thingapp.service.AuditServiceInterface;
 
 /*
  * This is the foundation for all of our REST enpoints

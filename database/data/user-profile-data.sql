@@ -1,0 +1,2 @@
+USE thingappdb;
+INSERT INTO user_profile(user_id, display_name, profile_photo, bio, date_of_birth, created_dtg, updated_dtg, version ) values("pennhess", "Penn Hess", "default_profile", "Hello! My name is Penn Hess and I am the creator of Thing App :)", "1995-11-03", "2023-04-12 19:28:14", "2023-04-12 19:28:14", 0 );

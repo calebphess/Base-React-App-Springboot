@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zetech.thingapp.thingapp.biz.AuthServiceInterface;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.AuthResponse;
+import com.zetech.thingapp.thingapp.service.AuthServiceInterface;
 
 // This is the core authentication endpoint
 // This endpoint is different from the others as it's the only service that you don't need a user token to call

@@ -31,4 +31,33 @@ public final class StringContentValidator
         return true;
     }
 
+    public static boolean validateEmail(String email,  String property, String field, boolean required, int maxLength, ValidationErrors errors)
+    {
+        // TODO: replace this with an email validation api
+        // validation by RFC 5322
+        String validation_regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+
+        boolean isEmpty = !StringUtils.hasLength(email);
+
+        if (required && isEmpty)
+        {
+            errors.addError(property, field + " cannot be empty.");
+            return false;
+        }
+
+        if (!email.matches(validation_regex))
+        {
+            errors.addError(property, "Email address is invalid.");
+            return false;
+        }
+
+        if (maxLength < email.length())
+        {
+            errors.addError(property, field + " cannot exceed " + maxLength + " characters.");
+            return false;
+        }
+
+        return true;
+    }
+
 }

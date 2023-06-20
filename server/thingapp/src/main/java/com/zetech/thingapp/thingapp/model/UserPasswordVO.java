@@ -2,26 +2,15 @@ package com.zetech.thingapp.thingapp.model;
 
 import java.util.Date;
 
-public class UserVO 
+public class UserPasswordVO 
 {
-  private String _userId;
   private String _email;
-  private String _googleId;
-  private Date _lastLoginDtg;
-  private boolean _isActive;
+  private String _passwordHash;
+  private int _loginAttempts;
+  private boolean _resetRequired;
   private Date _createdDtg;
   private Date _updatedDtg;
   private Long _version;
-
-  public String getUserId()
-  {
-    return _userId;
-  }
-
-  public void setUserId(String userId)
-  {
-    _userId = userId;
-  }
 
   public String getEmail()
   {
@@ -33,24 +22,14 @@ public class UserVO
     _email = email;
   }
 
-  public String getGoogleId()
+  public String getPasswordHash()
   {
-    return _googleId;
+    return _passwordHash;
   }
 
-  public void setGoogleId(String googleId)
+  public void setPasswordHash(String passwordHash)
   {
-    _googleId = googleId;
-  }
-
-  public Date getLastLoginDtg()
-  {
-    return _lastLoginDtg;
-  }
-
-  public void setLastLoginDtg(Date lastLoginDtg)
-  {
-    _lastLoginDtg = lastLoginDtg;
+    _passwordHash = passwordHash;
   }
 
   public Date getCreatedDtg()
@@ -83,13 +62,23 @@ public class UserVO
     _version = version;
   }
 
-  public boolean isActive()
+  public int getLoginAttempts()
   {
-    return _isActive;
+    return _loginAttempts;
   }
 
-  public void setActive(boolean isActive)
+  public void setLoginAttempts(int loginAttempts)
   {
-    _isActive = isActive;
+    _loginAttempts = loginAttempts;
+  }
+
+  public boolean isResetRequired()
+  {
+    return _resetRequired;
+  }
+
+  public void setResetRequired(boolean resetRequired)
+  {
+    _resetRequired = resetRequired;
   }
 }

@@ -1,0 +1,2 @@
+USE thingappdb;
+INSERT INTO user_password(email, password_hash, created_dtg, updated_dtg, login_attempts, reset_required, version ) values("penn@nocomment.dev", "PLACEHOLDER", "2023-04-12 19:28:14", "2023-04-12 19:28:14", 0, false, 0 );
