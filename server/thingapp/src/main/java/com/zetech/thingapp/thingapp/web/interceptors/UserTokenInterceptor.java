@@ -87,7 +87,7 @@ public class UserTokenInterceptor implements HandlerInterceptor
       // Call the authentication service
       String userId = _authService.authenticate(request.getHeader("Authorization"));
 
-      Set<ApplicationRoles> roles = _securityService.authorize("test-user@thingapp.com", new SystemToken());
+      Set<ApplicationRoles> roles = _securityService.authorize(userId, new SystemToken());
       
       // NOTE for a business email would actually be an employee ID
       // employee ID and roles would com from PKI

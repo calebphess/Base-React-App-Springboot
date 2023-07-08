@@ -1,7 +1,7 @@
 package com.zetech.thingapp.thingapp.model;
 
 
-public class AuthResponse
+public class AuthResponseVO
 {
   private String _accessToken;
   private int _expires;

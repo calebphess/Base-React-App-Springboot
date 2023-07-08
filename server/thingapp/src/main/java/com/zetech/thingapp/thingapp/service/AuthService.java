@@ -27,7 +27,7 @@ import com.zetech.thingapp.thingapp.exceptions.FatalException;
 import com.zetech.thingapp.thingapp.exceptions.NotAuthorizedException;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
-import com.zetech.thingapp.thingapp.model.AuthResponse;
+import com.zetech.thingapp.thingapp.model.AuthResponseVO;
 import com.zetech.thingapp.thingapp.model.UserPasswordVO;
 import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.SystemToken;
@@ -47,10 +47,9 @@ public class AuthService implements AuthServiceInterface
   @Autowired
   private UserService _userService;
 
-  public AuthResponse create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
+  public AuthResponseVO create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
   {
     // TODO: implement code to create JWT token and UserAuthTokenVO to write to database
-    // TODO: write code to convert the UserAuthTokenVO to JSON and then sign it and return the encrypted string
 
     // get our private key to use for signing the JWT token
     PrivateKey privateKey = null;
@@ -87,7 +86,7 @@ public class AuthService implements AuthServiceInterface
 
     if(passwordMatch) 
     {
-      AuthResponse encryptedAuthTokenVO = new AuthResponse();
+      AuthResponseVO encryptedAuthTokenVO = new AuthResponseVO();
 
       // get the date and calculate the expiration
       Date now = new Date();
@@ -127,6 +126,7 @@ public class AuthService implements AuthServiceInterface
   public String authenticate(String token) throws ThingAppException 
   {
     // TODO properly validate the token
+    // TODO maybe return the userVO instead of just the user ID
     
     // if there is no token, throw not authorized
     if(null == token || token.isEmpty()) 
@@ -141,7 +141,7 @@ public class AuthService implements AuthServiceInterface
     // otherwise return the userId
     else 
     {
-      return "test-user@thingapp.com";
+      return "thingappuser";
     }
   }
 

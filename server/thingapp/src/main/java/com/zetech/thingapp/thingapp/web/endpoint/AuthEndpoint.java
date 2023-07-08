@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
-import com.zetech.thingapp.thingapp.model.AuthResponse;
+import com.zetech.thingapp.thingapp.model.AuthResponseVO;
 import com.zetech.thingapp.thingapp.service.AuthServiceInterface;
 
 // This is the core authentication endpoint
@@ -22,12 +22,12 @@ public class AuthEndpoint extends BaseRESTEndpoint
   private AuthServiceInterface _service;
   
   @PostMapping("/api/auth/token")
-  public AuthResponse create(@RequestBody AuthRequestVO authRequestVO, HttpServletRequest request) throws ThingAppException
+  public AuthResponseVO create(@RequestBody AuthRequestVO authRequestVO, HttpServletRequest request) throws ThingAppException
   {
     try
     {
       // This is a special service that doesn't create a user token because we don't have a token to be handled by the UserTokenInterceptor yet
-      AuthResponse encryptedAuthToken = _service.create(authRequestVO, request);
+      AuthResponseVO encryptedAuthToken = _service.create(authRequestVO, request);
       // audit success
       auditCreateSuccess("Created auth token for user: " + authRequestVO.getUserLoginId(), request);
       return encryptedAuthToken;
