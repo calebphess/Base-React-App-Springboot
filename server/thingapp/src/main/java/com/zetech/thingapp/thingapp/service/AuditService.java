@@ -338,7 +338,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
       return _dao.retrieveAll();
     }
@@ -398,7 +398,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
       AuditVO data = _dao.retrieveById(id);
       if (null == data)
@@ -424,7 +424,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
 
       record.setReviewedDtg(new Date());
@@ -454,7 +454,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
       return _dao.deleteReviewed();
     }
@@ -475,7 +475,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
       return _dao.deleteAll();
     }
@@ -496,7 +496,7 @@ public class AuditService implements AuditServiceInterface
     {
       if (token.missingRole(ApplicationRoles.ADMINISTRATOR))
       {
-        throw new NotAuthorizedException("user is not admin");
+        throw new NotAuthorizedException("user: " + token.getUserId() + " is not admin");
       }
 
       List<AuditVO> allRecs = retrieveAll(token);

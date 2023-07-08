@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
-import com.zetech.thingapp.thingapp.model.AuthResponse;
+import com.zetech.thingapp.thingapp.model.AuthResponseVO;
 import com.zetech.thingapp.thingapp.security.UserToken;
 
 /*
@@ -18,7 +18,7 @@ import com.zetech.thingapp.thingapp.security.UserToken;
 public interface AuthServiceInterface
 {
   @Transactional(rollbackFor = Throwable.class)
-  AuthResponse create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException;
+  AuthResponseVO create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException;
 
   @Transactional(rollbackFor = Throwable.class)
   int delete(UserToken token,  HttpServletRequest request) throws ThingAppException;
