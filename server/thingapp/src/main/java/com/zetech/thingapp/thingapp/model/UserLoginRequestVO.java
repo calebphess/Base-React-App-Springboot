@@ -3,7 +3,7 @@ package com.zetech.thingapp.thingapp.model;
 import java.util.Date;
 
 
-public class UserPasswordRequestVO 
+public class UserLoginRequestVO 
 {
   private String _email;
   private String _password;

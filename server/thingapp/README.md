@@ -74,6 +74,31 @@ IMPORTANT: There are loads of better ways to do this. I recommend at least some 
 - If there are any asynchronous jobs they would start at the service level and run with the system token instead of a user token, since the system is performing the action automatically
 
 ## Personal TODO
+ - auth thoughts
+     - need to create auth token service
+          - don't need a valid flag, I should just delete the token to invalidate it
+          - need logic so you can't auth in if you already have a token
+          - make user auth token is stored in the user token
+          - need to deny access and delete token if it hasn't been used in 5 mins
+          - need to update last_active time on every call
+          - need to delete the token after 24 hours if regardless of last_active time
+          - need to set logic to validate that account is active
+          - need to set logic to validate that resetRequested is false
+          - need to add logic to auto lock account if attempted logins hits 10
+          - add logic to force password change after 365 days
+ - need to add a create user endpoint that takes a UserCreateRequestVO (user info, plus password)
+     - create user should add a default role and a default profile
+     - should take email, username and password at minimum unless logging in with google
+ - need to add a user role endpoint to add roles to a user
+ - need to add a lock user and delete user endpoint
+ - need to add an update user profile endpoint
+ - need to add a force password reset endpoint for admins
+ - need to figure out forgot password logic (maybe we create a token that we embedded in the url)
+     - this would work fine
+     - then here you have a reset password request that strips the "ID" off the end
+     - and takes username and new password field and ID and uses it to make the password change
+     - on successful change it sets resetRequired to false
  - we will want to add a /user/public endpoint that only returns relevant information for a public user
  - refactor out biz and service logic for all old services
  - need to move auth service to security service
+ - eventually need to figure out how to implement google auth

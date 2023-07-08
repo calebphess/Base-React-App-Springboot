@@ -1,0 +1,9 @@
+
+${AnsiBackground.17}${AnsiColor.51}████████╗██╗  ██╗██╗███╗  ██╗ ██████╗   ${AnsiColor.204} █████╗ ██████╗ ██████╗ ${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.51}╚══██╔══╝██║  ██║██║████╗ ██║██╔════╝   ${AnsiColor.204}██╔══██╗██╔══██╗██╔══██╗${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.123}   ██║   ███████║██║██╔██╗██║██║  ██╗   ${AnsiColor.205}███████║██████╔╝██████╔╝${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.123}   ██║   ██╔══██║██║██║╚████║██║  ╚██╗  ${AnsiColor.205}██╔══██║██╔═══╝ ██╔═══╝ ${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.14}   ██║   ██║  ██║██║██║ ╚███║╚██████╔╝  ${AnsiColor.206}██║  ██║██║     ██║     ${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.14}   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚══╝ ╚═════╝   ${AnsiColor.206}╚═╝  ╚═╝╚═╝     ╚═╝     ${AnsiBackground.0}
+${AnsiBackground.17}${AnsiColor.47}  :: A ${AnsiColor.227}//${AnsiColor.117}No${AnsiColor.141}Comment ${AnsiColor.47}Project Built with Spring Boot${spring-boot.formatted-version} ::   ${AnsiBackground.0}
+${AnsiBackground.0}${AnsiColor.0}

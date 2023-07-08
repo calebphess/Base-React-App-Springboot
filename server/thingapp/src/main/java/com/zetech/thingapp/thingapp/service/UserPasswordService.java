@@ -12,7 +12,7 @@ import com.zetech.thingapp.thingapp.exceptions.OptimisticLockFailedException;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.exceptions.ValidationErrors;
 import com.zetech.thingapp.thingapp.exceptions.ValidationFailedException;
-import com.zetech.thingapp.thingapp.model.UserPasswordRequestVO;
+import com.zetech.thingapp.thingapp.model.UserLoginRequestVO;
 import com.zetech.thingapp.thingapp.model.UserPasswordVO;
 import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.UserToken;
@@ -43,7 +43,7 @@ public class UserPasswordService implements UserPasswordServiceInterface
     }
 
     @Override
-    public void create(UserPasswordRequestVO record, UserToken token) throws ThingAppException 
+    public void create(UserLoginRequestVO record, UserToken token) throws ThingAppException 
     {
         try
         {
@@ -106,7 +106,7 @@ public class UserPasswordService implements UserPasswordServiceInterface
     // TODO: rework this to handle forgot password requests
     // TODO: rework all services to update version at the service tier
     @Override
-    public void update(UserPasswordRequestVO record, UserToken token) throws ThingAppException 
+    public void update(UserLoginRequestVO record, UserToken token) throws ThingAppException 
     {
       UserPasswordVO oldRecord = retrieveByEmail(record.getEmail(), token);
 
