@@ -13,6 +13,7 @@ import org.springframework.lang.Nullable;
 
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
+import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
 import com.zetech.thingapp.thingapp.service.AuthServiceInterface;
@@ -67,6 +68,7 @@ public class UserTokenInterceptor implements HandlerInterceptor
    *        - Client side tokens should be stored as cookies
    *        - TLS should obviously be a requirement
    *    - Another interesting article here https://www.jessym.com/articles/stateless-oauth2-social-logins-with-spring-boot#stateless-sessions-recurring
+   *    - Another interesting read: https://blog.logrocket.com/jwt-authentication-best-practices/
    *  - Security is hard...
   */
 
@@ -85,7 +87,8 @@ public class UserTokenInterceptor implements HandlerInterceptor
     {
       // TODO: investigate this to make sure we don't get 500s somewhere instead of 401s
       // Call the authentication service
-      String userId = _authService.authenticate(request.getHeader("Authorization"));
+      UserVO user = _authService.authenticate(request.getHeader("Authorization"));
+      String userId = user.getUserId();
 
       Set<ApplicationRoles> roles = _securityService.authorize(userId, new SystemToken());
       

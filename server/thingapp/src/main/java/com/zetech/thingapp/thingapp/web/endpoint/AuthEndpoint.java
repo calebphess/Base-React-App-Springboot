@@ -27,7 +27,8 @@ public class AuthEndpoint extends BaseRESTEndpoint
     try
     {
       // This is a special service that doesn't create a user token because we don't have a token to be handled by the UserTokenInterceptor yet
-      AuthResponseVO encryptedAuthToken = _service.create(authRequestVO, request);
+      AuthResponseVO encryptedAuthToken = _service.login(authRequestVO, request);
+      
       // audit success
       auditCreateSuccess("Created auth token for user: " + authRequestVO.getUserLoginId(), request);
       return encryptedAuthToken;

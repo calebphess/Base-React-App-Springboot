@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 	  ORDER BY user_id ASC
   </select>
   
-  <select id="retrieveByUserId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
+  <select id="retrieveById" resultType="com.zetech.thingapp.thingapp.model.UserVO">
 		SELECT * 
 		FROM user
 		WHERE user_id=#{id}

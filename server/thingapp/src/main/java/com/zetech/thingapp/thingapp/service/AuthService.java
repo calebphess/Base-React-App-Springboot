@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
 import io.github.cdimascio.dotenv.Dotenv;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 
 import java.time.temporal.ChronoUnit;
@@ -28,6 +32,7 @@ import com.zetech.thingapp.thingapp.exceptions.NotAuthorizedException;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.AuthResponseVO;
+import com.zetech.thingapp.thingapp.model.AuthTokenVO;
 import com.zetech.thingapp.thingapp.model.UserPasswordVO;
 import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.SystemToken;
@@ -47,7 +52,7 @@ public class AuthService implements AuthServiceInterface
   @Autowired
   private UserService _userService;
 
-  public AuthResponseVO create(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
+  public AuthResponseVO login(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException 
   {
     // TODO: implement code to create JWT token and UserAuthTokenVO to write to database
 
@@ -103,6 +108,8 @@ public class AuthService implements AuthServiceInterface
         .signWith(privateKey)
         .compact();
 
+      // TODO: write the token to the database
+
       // set the values to return the token to the client in a standard format
       encryptedAuthTokenVO.setAccessToken(jwtToken);
       encryptedAuthTokenVO.setTokenType(token_type);
@@ -116,33 +123,78 @@ public class AuthService implements AuthServiceInterface
     }
   }
 
-  public int delete(UserToken token,  HttpServletRequest request) throws ThingAppException 
+  // TODO: implement this for token invalidation
+  public int invalidate(UserToken token,  HttpServletRequest request) throws ThingAppException 
   {
     // TODO: Finish this code
     return 1;
   }
 
   @Override
-  public String authenticate(String token) throws ThingAppException 
+  public UserVO authenticate(String token) throws ThingAppException 
   {
     // TODO properly validate the token
     // TODO maybe return the userVO instead of just the user ID
+
+    // get our private key to use for signing the JWT token
+    PrivateKey privateKey = null;
+    try 
+    {
+      privateKey = getPrivateKey();
+    } 
+    catch (Exception e) 
+    {
+      throw new FatalException("Error getting private key", e);
+    }
     
     // if there is no token, throw not authorized
     if(null == token || token.isEmpty()) 
     {
       throw new NotAuthorizedException("User is not logged in.");
     }
-    // if the token is invalid, throw not authorized
-    else if(!token.contentEquals("Bearer " + "TEST_TOKEN")) 
+
+    // if the token is not a bearer token, throw not authorized
+    else if(!token.startsWith("Bearer ")) 
     {
       throw new NotAuthorizedException("User auth token is invalid");
     }
-    // otherwise return the userId
-    else 
+
+    // get the token without the bearer prefix
+    String jwsTokenString = token.substring(7);
+
+    // todo: maybe convert this into it's own JWT bean
+    // build the parser with our private key
+    JwtParserBuilder jwtPBuilder = Jwts.parserBuilder();
+    jwtPBuilder.setSigningKey(privateKey);
+    JwtParser jwtParser = jwtPBuilder.build();
+
+    // parse the token to get the claims
+    Jws<Claims> jwsTokenClaims = null;
+    
+    try 
     {
-      return "thingappuser";
+      jwsTokenClaims = jwtParser.parseClaimsJws(jwsTokenString);
     }
+    catch(Exception e) 
+    {
+      throw new NotAuthorizedException("User auth token is invalid");
+    }
+
+    String userId = jwsTokenClaims.getBody().getSubject();
+    String uuid = jwsTokenClaims.getBody().getId();
+    Date expiration = jwsTokenClaims.getBody().getExpiration();
+    Date issued = jwsTokenClaims.getBody().getIssuedAt();
+
+    System.out.println("User ID: " + userId);
+    System.out.println("UUID: " + uuid);
+    System.out.println("Expiration: " + expiration);
+    System.out.println("Issued: " + issued);
+
+    // TODO: check the database to see if the token is valid
+    // TODO: return the proper user object
+
+    return _userService.retrieveById("pennhess", new SystemToken());
+
   }
 
   // TODO: maybe wrap this with better error handling
