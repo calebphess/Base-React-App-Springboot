@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 	  ORDER BY user_id ASC
   </select>
   
-  <select id="retrieveByUserId" resultType="com.zetech.thingapp.thingapp.model.UserVO">
+  <select id="retrieveById" resultType="com.zetech.thingapp.thingapp.model.UserVO">
 		SELECT * 
 		FROM user
 		WHERE user_id=#{id}
@@ -45,32 +45,32 @@ PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
 			)
 			values(#{userId},
 				#{email},
-				#{google_id},
-				#{first_name},
-				#{last_name},
-				#{date_of_birth},
-				#{password_hash},
-				#{password_date},
-				#{profile_photo},
-				#{last_login_dtg},
-				#{created_dtg},
-				#{updated_dtg},
+				#{googleId},
+				#{firstName},
+				#{lastName},
+				#{dateOfBirth},
+				#{passwordHash},
+				#{passwordDate},
+				#{profilePhoto},
+				#{lastLoginDtg},
+				#{createdDtg},
+				#{updatedDtg},
 				#{version}
 			)	
   </insert>
 
 	<update id="update" parameterType="com.zetech.thingapp.thingapp.model.UserVO">
     UPDATE user
-		SET google_id=#{google_id},
-			first_name=#{first_name},
-			last_name=#{last_name},
-			date_of_birth=#{date_of_birth},
-			password_hash=#{password_hash},
-			password_date=#{password_date},
-			profile_photo=#{profile_photo},
-			last_login_dtg=#{last_login_dtg},
-			created_dtg=#{created_dtg},
-			updated_dtg=#{updated_dtg},
+		SET google_id=#{googleId},
+			first_name=#{firstName},
+			last_name=#{lastName},
+			date_of_birth=#{dateOfBirth},
+			password_hash=#{passwordHash},
+			password_date=#{passwordDate},
+			profile_photo=#{profilePhoto},
+			last_login_dtg=#{lastLoginDtg},
+			created_dtg=#{createdDtg},
+			updated_dtg=#{updatedDtg},
 			version=#{version}+1
 		WHERE id=#{id} AND version=#{version}
   </update>

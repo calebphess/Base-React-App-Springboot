@@ -109,7 +109,7 @@ public class UserService implements UserServiceInterface
         }
         catch (Throwable e)
         {
-          throw new FatalBeanException("Error creating user role");
+          throw new FatalBeanException("Error creating user");
         }
     }
 

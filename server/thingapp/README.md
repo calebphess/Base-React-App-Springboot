@@ -73,15 +73,83 @@ IMPORTANT: There are loads of better ways to do this. I recommend at least some 
 - The util module is for commonly used or complex validation logic
 - If there are any asynchronous jobs they would start at the service level and run with the system token instead of a user token, since the system is performing the action automatically
 
+### Reasons for various design decisions
+- DISCLAIMER: I'm not saying this way is the best way, there are infinite ways to build a system and this is just one of them. However, I have tested this design in numerous production environments, with multiple teams, and across various organzations and it was worked incredibly well for me. I have also seen this design scale to millions of users and thousands of requests per second with queries running in real time on billions of rows. So, if you know of another design pattern that's been through the same level of rigor and you think it's better than this one, then I'm not really sure why you're here.
+
+- Why use Java over NodeJS or Python?
+     - I have more experience in Java and it's frameworks
+     - Object oriented programming is strictly defined which makes it easier to enforce patterns
+     - Java is statically typed which makes it easier to catch errors before runtime
+     - Most developers have experience in Java
+
+- Why I use SpringBoot
+     - Most Java developers know SpringBoot
+     - It's a bit easier to set up than OG Spring
+     - It provides a nice basic framework to build patterns on top of
+
+- Why Maven over Gradle?
+     - I have more experience in Maven
+     - I've never tried gradle but I'm sure it works just as well or better but I don't think the difference will be that noticeable in the long run
+
+- Why MySQL
+     - MySQL is very fast and very stable
+     - Most people underestimate just how fast and how stable it is
+     - Most people often jump to NoSQL databases and I wonder if that's becuase they don't know how to structure data properly
+     - 90% of the time, relational databases are the best choice
+     - Relational databases enable you as a tech lead to control the design of the entire system for most apps
+     - Mysql is incredibly easy to set up and maintain
+     - It's free
+
+- Why Mibatis over Hibernate
+     - Mibatis is faster at reading, which can be a big deal at scale
+     - I like that it's data centric over object centric
+          - object centric code bases tend to be more... gooey... IMO
+     - It also enforces a clean break between the data access layer and the service layer which is nice when making patterns
+     - If you are intereseted in Hibernate I might also recommend checking out JOOQ
+          - I hear people argue that Hibernate is better because it's so easy, but if you truly want easy, use JOOQ
+
+- Why REACT?
+     - I wanted to learn it
+     - I've built this same framework before on Angular, Vue and ExtJS
+     - All of them support Model-View-Controller (MVC) patterns in some capacity so whatever works for you I guess
+     - I like the amount of open source libraries it has
+     - Works well with mobile (and I may do a react native app in the future)
+
+- Why Material UI?
+     - It's a good standard to follow
+     - It has lots of pre-built components
+     - Helps the app look more professional
+
+Why REST?
+     - REST is SO EASY
+
+Why don't you use Spring Security?
+     - I've used Spring Security before and it's great, but it's also a bit heavy- 
+
+Why not Spring Security?
+     - It's a bit heavy
+     - The goal of this app is to mostly be deployed in environments that revolve around LDAP / PKI authentication
+          - In these environments you should be fully stateless so there isn't much need for such a large framework
+     - I also wanted to learn how to build a JWT authentication framework since I don't do commercial apps much
+     - Having the code written here makes it easier to get others to truly understand what's going on with security
+          - Most devs don't know security that well from my experience and just rely on these libraries and I find that a bit horrifying to be honest
+
+Why the Pattern?
+     - Patterns are everything in software development
+     - Yes they can be lot's of extra code that seems useless to write, but the trade off is exponential
+     - They force you and your team to think about and understand all parts of the app
+     - They allow you to pass off more work onto your team (especially junior members)
+     - This is how you quickly build apps that are scalable and reliable
+     - and more importantly this is how you hand them off to someone else so you can move on to better things
+     - AND you can do that while ensuring the app doesn't die when you leave
+     - They also can minimize the appearance of bugs with the help of some added devops and requirements documentation
+
 ## Personal TODO
+ - Make a job to deleteAllExpired user auth tokens to clean out the DB to run maybe once a day
+ - How do we handle when a user is not allowed to access data vs when they haven't authenticated yet
+     - we probably need to add a ForbiddenException
  - auth thoughts
-     - need to create auth token service
-          - don't need a valid flag, I should just delete the token to invalidate it
-          - need logic so you can't auth in if you already have a token
-          - make user auth token is stored in the user token
-          - need to deny access and delete token if it hasn't been used in 5 mins
-          - need to update last_active time on every call
-          - need to delete the token after 24 hours if regardless of last_active time
+     - updates to auth service
           - need to set logic to validate that account is active
           - need to set logic to validate that resetRequested is false
           - need to add logic to auto lock account if attempted logins hits 10
