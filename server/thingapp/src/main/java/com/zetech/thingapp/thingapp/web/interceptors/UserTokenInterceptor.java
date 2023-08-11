@@ -12,7 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.lang.Nullable;
 
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
+import com.zetech.thingapp.thingapp.constants.SpecialUsers;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
+import com.zetech.thingapp.thingapp.model.UserAuthTokenVO;
 import com.zetech.thingapp.thingapp.model.UserVO;
 import com.zetech.thingapp.thingapp.security.SystemToken;
 import com.zetech.thingapp.thingapp.security.UserToken;
@@ -41,32 +43,25 @@ public class UserTokenInterceptor implements HandlerInterceptor
 
   /*
    * Security Notes (for HIGH security):
-   *  - Create a /auth/token endpoint that generates a token when given a username and password
-   *    - Token has a userID, a tokenId, an ipAddress and a createdDtg
-   *    - timeout of 15 minutes that is tracked via an auth_token database
-   *  - The user token interceptor should ALWAYS FULLY validate the token (as in all fields against the db)
-   *    - This way someone can't re-generate tokens forever even if they get the token generation secret
+   *  - Create a /auth/token endpoint that generates a token when given a email and password
+   *    - Token has a userID, a tokenId, an ipAddress, an expirationDtg and a createdDtg
+   *    - timeout of 5 minutes that is tracked via an auth_token database if unused
+   *  - The user token interceptor will ALWAYS FULLY validate the token (as in all fields against the db)
+   *    - This way someone can't re-generate tokens forever even if they get the token generation secret (AKA the server cert)
    *  - The difference between the auth_token and the auth_token database is that the database has a "last_used" flag with a DTG of when it was last used
-   *    - This helps us track the 15 min inactive early timeout function
+   *    - This helps us track the 5 min inactive early timeout function
    *  - To "invalidate" an auth_token we just delete it from the database
-   * **** The following is too secure ****
-   *    - If I wanted to be crazy I could also roll the token generation secret every 24 hours and have it live in the database
-   *      - The downside to this is then it also has to be queried with the user every call
-   *      - I could also do something where the token generation secret is it's own token that expires every 24 hours that is saved in the user table with each user
-   *      - but then I would need a way to know which user was making the request so I'd have to add like a user-id to the header or something
-   * *************************************
-   *    - I should at least set up a schedule for rolling the oauth token secret
-   * **** TODO: When making lots of money ****
+   * **** TODO: When used on a profitable production system ****
    *    - We should probably shift our token strategy to fit openID connect at some point
    *    - This is not because it's more secure but instead because it makes us more compliant when integrating with other servers and api's
    *    - That said, I would avoid revamping this until that day comes because IMO OpenID connect is a poorly thought out standard
-   * *****************************************
+   * ***********************************************************
    *    - There's a good article on making JWTs more secure here https://pragmaticwebsecurity.com/articles/apisecurity/hard-parts-of-jwt.html
    *      - Notes from this article:
-   *        - It's a good idea to be able to invalidate users regardless of their token, probably by deactivating their account in the event of "suspicious activity" thorugh an "is_active" key
-   *          - This would actually live in the user table as an "active" flag
+   *        - It's a good idea to be able to invalidate users regardless of their token, probably by deactivating their account in the event of "suspicious activity" thorough the "is_active" key
+   *          - This actually lives in the user table as an "active" flag
    *        - Client side tokens should be stored as cookies
-   *        - TLS should obviously be a requirement
+   *        - TLS is obviously a requirement
    *    - Another interesting article here https://www.jessym.com/articles/stateless-oauth2-social-logins-with-spring-boot#stateless-sessions-recurring
    *    - Another interesting read: https://blog.logrocket.com/jwt-authentication-best-practices/
    *  - Security is hard...
@@ -77,27 +72,39 @@ public class UserTokenInterceptor implements HandlerInterceptor
     // check if the user is trying to log in, if so allow them to hit the auth endpoint without generating a user token
     String uri = request.getRequestURI();
     String clientIp = request.getRemoteAddr();
-    if(isPublic(uri)) 
+
+    // Call the authentication service
+    try
     {
-      UserToken token = new UserToken("UNAUTHENTICATED_USER", clientIp, null);
-      request.getSession().setAttribute("TOKEN", token);
-      return true;
-    }
-    else
-    {
-      // TODO: investigate this to make sure we don't get 500s somewhere instead of 401s
-      // Call the authentication service
-      UserVO user = _authService.authenticate(request.getHeader("Authorization"));
-      String userId = user.getUserId();
+      String bearerToken = request.getHeader("Authorization");
+      UserAuthTokenVO userAuthToken = _authService.authenticate(bearerToken, clientIp);
+      
+      String userId = userAuthToken.getUserId();
+      String tokenId = userAuthToken.getUuid();
 
       Set<ApplicationRoles> roles = _securityService.authorize(userId, new SystemToken());
       
-      // NOTE for a business email would actually be an employee ID
-      // employee ID and roles would com from PKI
-      UserToken token = new UserToken(userId, clientIp, roles);
+      // NOTE for a business, email would actually be an employee ID
+      // employee ID and roles would come from PKI
+      // having PKI makes authentication WAAAAAAY easier, I truly don't know why the internet didn't ever enforce PKI as a standard
+      UserToken token = new UserToken(userId, tokenId, clientIp, roles);
 
       request.getSession().setAttribute("TOKEN", token);
       return true;
+    }
+    // if something goes wrong check for a public URI before throwing the error
+    catch (ThingAppException e)
+    {
+      if(isPublic(uri)) 
+      {
+        UserToken token = new UserToken(SpecialUsers.UNAUTHENTICATED_USER.toString(), clientIp, null);
+        request.getSession().setAttribute("TOKEN", token);
+        return true;
+      }
+      else
+      {
+        throw e;
+      }
     }
   }
 

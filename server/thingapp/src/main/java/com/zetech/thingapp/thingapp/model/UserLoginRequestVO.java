@@ -1,7 +1,5 @@
 package com.zetech.thingapp.thingapp.model;
 
-import java.util.Date;
-
 
 public class UserLoginRequestVO 
 {

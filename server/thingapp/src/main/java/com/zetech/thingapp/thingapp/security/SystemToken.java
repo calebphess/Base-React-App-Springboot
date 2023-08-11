@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.zetech.thingapp.thingapp.constants.ApplicationRoles;
+import com.zetech.thingapp.thingapp.constants.SpecialUsers;
 
 /*
  * This is the token that our System uses to do things on it's own behalf
@@ -17,7 +18,7 @@ public final class SystemToken extends UserToken
   public SystemToken()
   {
     // since email is our primary user ID here I want to make it appear valid by giving it the ID of SYSTEM@<Application Name>.com
-    super("SYSTEM@thingapp.com", "0.0.0.0", makeRoles());
+    super(SpecialUsers.SYSTEM_USER.toString(), "0.0.0.0", makeRoles());
   }
 
   // Here we give the system user every available role

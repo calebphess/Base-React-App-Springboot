@@ -1,0 +1,66 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zetech.thingapp.thingapp.dal.interfaces.UserAuthTokenDAOInterface">
+
+  <select id="retrieveAll" resultType="com.zetech.thingapp.thingapp.model.UserAuthTokenVO">
+		SELECT * 
+		FROM user_auth_token
+	  ORDER BY uuid ASC
+  </select>
+
+	<select id="retrieveAllForUserId" resultType="com.zetech.thingapp.thingapp.model.UserAuthTokenVO">
+		SELECT * 
+		FROM user_auth_token
+		WHERE user_id=#{user_id}
+  </select>
+  
+  <select id="retrieveByUuid" resultType="com.zetech.thingapp.thingapp.model.UserAuthTokenVO">
+		SELECT * 
+		FROM user_auth_token
+		WHERE uuid=#{id}
+  </select>
+  
+  <insert id="create" parameterType="com.zetech.thingapp.thingapp.model.UserAuthTokenVO" keyColumn="uuid" keyProperty="uuid">
+    INSERT INTO user_auth_token(uuid,
+				user_id,
+				issued_dtg,
+				expiration_dtg,
+				last_active_dtg,
+				client_ip_address,
+				version
+			)
+			values(#{uuid},
+				#{userId},
+				#{issuedDtg},
+				#{expirationDtg},
+				#{lastActiveDtg},
+				#{clientIpAddress},
+				#{version}
+			)	
+  </insert>
+
+	<update id="update" parameterType="com.zetech.thingapp.thingapp.model.UserAuthTokenVO">
+    UPDATE user_auth_token
+		SET uuid=#{uuid},
+			user_id=#{userId},
+			issued_dtg=#{issuedDtg},
+			expiration_dtg=#{expirationDtg},
+			last_active_dtg=#{lastActiveDtg},
+			client_ip_address=#{clientIpAddress},
+			version=#{version}+1
+		WHERE uuid=#{uuid} AND version=#{version}
+  </update>
+
+  <delete id="delete" parameterType="java.lang.String">
+    DELETE FROM user_auth_token
+    WHERE uuid=#{uuid}
+  </delete>
+
+	<delete id="deleteAllForUser" parameterType="java.lang.String">
+    DELETE FROM user_auth_token
+    WHERE user_id=#{user_id}
+  </delete>
+
+</mapper>

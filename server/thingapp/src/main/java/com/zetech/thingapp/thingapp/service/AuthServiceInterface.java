@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zetech.thingapp.thingapp.exceptions.ThingAppException;
 import com.zetech.thingapp.thingapp.model.AuthRequestVO;
 import com.zetech.thingapp.thingapp.model.AuthResponseVO;
-import com.zetech.thingapp.thingapp.model.UserVO;
+import com.zetech.thingapp.thingapp.model.UserAuthTokenVO;
 import com.zetech.thingapp.thingapp.security.UserToken;
 
 /*
@@ -19,12 +19,15 @@ import com.zetech.thingapp.thingapp.security.UserToken;
 public interface AuthServiceInterface
 {
   @Transactional(rollbackFor = Throwable.class)
-  AuthResponseVO login(AuthRequestVO record,  HttpServletRequest request) throws ThingAppException;
+  AuthResponseVO login(AuthRequestVO record,  UserToken token) throws ThingAppException;
 
-  @Transactional(rollbackFor = Throwable.class)
-  int invalidate(UserToken token,  HttpServletRequest request) throws ThingAppException;
+  // We don't want this as transactional as it should always invalidate the user when in doubt
+  int logout(UserToken token) throws ThingAppException;
 
-  @Transactional(rollbackFor = Throwable.class)
-  UserVO authenticate(String token) throws ThingAppException;
+  // We don't want this as transactional as it should always invalidate the user when in doubt
+  int logoutEverywhere(UserToken token) throws ThingAppException;
+
+  // TODO: figure out how to make this transactional for all but unauthorized exceptions
+  UserAuthTokenVO authenticate(String bearerToken, String ipAddress) throws ThingAppException;
 
 }
