@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>No Comment</title>
+    <style>
+
+        body {
+            background: #181818;
+            color: #eeeeee;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container,
+        .title-container,
+        .footer-content {
+            width: 100%;
+            max-width: 800px; /* Fixed size */
+            padding: 20px;
+            margin: 0 auto; /* Centers the container */
+        }
+
+        .title-container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 80px;
+            font-weight: bold;
+            font-style: italic;
+            background: linear-gradient(to right, #e3e793 40%, #96c9e6, #a373ec 60%);
+            -webkit-background-clip: text;
+            color: transparent;
+            transition: transform 5s ease;
+        }
+
+        .title:hover {
+            transform: translateY(15px) scale(1.3); /* Move upwards on hover */
+        }
+
+        .bio {
+            font-size: 20px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: justify;
+        }
+
+        .bio span {
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+
+        .bio span:hover {
+            transform: scale(1.1);
+            color: var(--hover-color);
+        }
+
+        .contact-button, .submit-button, .cancel-button {
+            border-radius: 30px;
+        }
+
+        .contact-button {
+            background: linear-gradient(to left, #96c9e6 15%, #a373ec 85%);
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            color: #181818;
+            transition: all 0.5s ease;
+        }
+
+        .contact-button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(to right, #96c9e6 15%, #a373ec 85%);
+        }
+
+        .contact-button.clicked {
+            background: linear-gradient(to right, #96c9e6 15%, #a373ec 85%);
+        }
+
+        .contact-button.clicked:hover {
+            transform: scale(1.1);
+            background: linear-gradient(to left, #96c9e6 15%, #a373ec 85%);
+        }
+
+        .contact-form {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            width: 100%;
+        }
+
+        .contact-form.expanded {
+            max-height: 300px;
+        }
+
+        .input-field, .textarea-field {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid transparent;
+            background: #1c1c1c;
+            color: #eeeeee;
+            outline: none;
+            border-radius: 15px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            background: linear-gradient(to left, #e3e793 15%, #a373ec 85%);
+            color: #2b2b2b;
+            font-size: 16px;
+            transition: all 0.5s ease;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(to right, #e3e793 15%, #a373ec 85%);
+        }
+
+        .cancel-button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            background: linear-gradient(to left, #96c9e6 15%, #e3e793 85%);
+            color: #2b2b2b;
+            font-size: 16px;
+            transition: all 0.5s ease;
+        }
+
+        .cancel-button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(to right, #96c9e6 15%, #e3e793 85%);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            text-align: center;
+            padding: 10px 5px; /* Reduced padding */
+            height: 50px; /* Reduced height */
+        }
+
+        .footer-content p,
+        .footer-content a {
+            margin: 2px; /* Reduced margin */
+        }
+
+        .instagram-link {
+            color: #e3e793;
+            transition: color 0.5s ease;
+        }
+
+        .instagram-link:hover {
+            color: #a373ec;
+        }
+
+        .instagram-icon {
+            margin-left: 5px;
+        }
+
+        @media (max-width: 800px) {
+            .container,
+            .title-container,
+            .footer-content {
+                padding: 20px 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+  <div class="title-container">
+    <div class="title">//NoComment</div>
+  </div>
+  <div class="container">
+    <div class="bio">
+        <span>We</span> <span>are</span> <span>a</span> <span>company</span> <span>that</span> <span>provides</span>
+        <span>material</span> <span>to</span> <span>train</span> <span>new</span> <span>software</span> <span>developers</span>
+        <span>as</span> <span>well</span> <span>as</span> <span>improve</span> <span>the</span> <span>habits</span>
+        <span>and</span> <span>coding</span> <span>practices</span> <span>of</span> <span>existing</span> <span>software</span>
+        <span>engineers</span> <span>to</span> <span>help</span> <span>make</span> <span>the</span> <span>world</span>
+        <span>a</span> <span>better</span> <span>place.</span> <span>We</span> <span>do</span> <span>this</span>
+        <span>by</span> <span>offering</span> <span>both</span> <span>material</span> <span>and</span> <span>training.</span>
+    </div>
+    <button class="contact-button" id="contactButton" onclick="toggleForm()">Interested?</button>
+    <div class="contact-form" id="contactForm">
+        <input type="text" class="input-field" placeholder="First Name" id="firstName">
+        <input type="text" class="input-field" placeholder="Last Name" id="lastName">
+        <input type="email" class="input-field" placeholder="Email" id="email">
+        <textarea class="textarea-field" placeholder="What would you like to know?" id="body"></textarea>
+        <button class="submit-button" onclick="submitForm()">Submit</button>
+        <button class="cancel-button" onclick="cancelForm()">Cancel</button>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-content">
+      <p>This website is part of No Comment LLC</p>
+      <a href="https://www.instagram.com/nocommentdev_/" class="instagram-link">
+          Follow us on Instagram <span class="fa fa-instagram"></span>
+      </a>
+    </div>
+  </div>
+    <script>
+        function toggleForm() {
+            const form = document.getElementById('contactForm');
+            const button = document.getElementById('contactButton');
+            form.classList.toggle('expanded');
+            button.classList.toggle('clicked');
+        }
+
+        function submitForm() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const body = document.getElementById('body').value;
+            const subject = `No Comment Inquiry from ${firstName} ${lastName}`;
+            window.location.href = `mailto:info@nocomment.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        function cancelForm() {
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('body').value = '';
+            toggleForm();
+        }
+
+        document.querySelectorAll('.bio span').forEach(span => {
+            span.addEventListener('mouseover', function() {
+                const colors = ['#e3e793', '#96c9e6', '#a373ec'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                span.style.setProperty('--hover-color', color);
+            });
+        });
+    </script>
+</body>
+</html>

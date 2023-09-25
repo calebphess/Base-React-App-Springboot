@@ -52,6 +52,16 @@ IMPORTANT: There are loads of better ways to do this. I recommend at least some 
 3. See the application running in the browser
      - See the Swagger page at https://localhost:8443/thingapp/api-docs
 
+## Debugging
+- If you are getting 500 hikari errors on endpoint calls
+     1. Make sure that your database is running
+     2. Make sure that your credentials are correct in your .env file
+     3. I've found that sometimes I need to login to the DB directly with the credentials to get it to work
+          - I'm not sure why this is but it seems to be a thing
+          - Command looks something like this `mysql -u thingappuser -p thingappdb`
+               - enter the password in your .env file
+               - if this errors then your .env password is wrong
+               
 ## Backend workflow / code navigation
 ### High level overview
 - web endpoint <-> biz interface <-> biz <-> service interface <-> service <-> dal <-> dao <-> database

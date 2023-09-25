@@ -95,7 +95,7 @@ public class UserTokenInterceptor implements HandlerInterceptor
     // if something goes wrong check for a public URI before throwing the error
     catch (ThingAppException e)
     {
-      if(isPublic(uri)) 
+      if(isPublic(uri) || request.getMethod().contentEquals("OPTIONS")) 
       {
         UserToken token = new UserToken(SpecialUsers.UNAUTHENTICATED_USER.toString(), clientIp, null);
         request.getSession().setAttribute("TOKEN", token);

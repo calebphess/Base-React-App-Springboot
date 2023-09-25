@@ -36,11 +36,28 @@ public class WebConfiguration implements WebMvcConfigurer
   }
 
   // https://spring.io/blog/2015/06/08/cors-support-in-spring-framework
+  // @Override
+  // public void addCorsMappings(CorsRegistry registry)
+  // {
+  //   registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+  // }
+
+  // @Bean
+  // public WebMvcConfigurer corsConfigurer() {
+  //     return new WebMvcConfigurer() {
+  //         @Override
+  //         public void addCorsMappings(CorsRegistry registry) {
+  //             registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+  //         }
+  //     };
+  // }
+
   @Override
   public void addCorsMappings(CorsRegistry registry)
   {
-    registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+    registry.addMapping("/**").allowedOrigins("*");
   }
+
 //  @Bean
 //  public WebMvcConfigurer corsConfigurer()
 //  {

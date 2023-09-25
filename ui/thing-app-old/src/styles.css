@@ -1,0 +1,10 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust columns as needed */
+  gap: 1rem;
+}
+
+.grid-item {
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
