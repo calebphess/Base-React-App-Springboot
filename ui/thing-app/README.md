@@ -9,6 +9,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   - *For Macs* you may need to install xcode dev tools
     - `xcode-select --install` (it will pop up a window to install the dev toolkit)
   - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
+- Install Node
+  - `nvm install node`
 
 ## Available Scripts
 
