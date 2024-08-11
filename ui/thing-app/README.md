@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installs required for the UI
+
+### Npm
+- Install NVM
+  - *For Macs* you may need to install xcode dev tools
+    - `xcode-select --install` (it will pop up a window to install the dev toolkit)
+  - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
+
 ## Available Scripts
 
 In the project directory, you can run:
