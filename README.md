@@ -2,7 +2,7 @@
 An example React application with a Java Springboot server connected to a MySQL database
 
 ## IDE Recommendations
-- VS Code
+- [VS Code](https://code.visualstudio.com/download)
   - Extension Pack for Java
   - Spring Boot Extension Pack
   - Swagger Viewer
@@ -10,9 +10,10 @@ An example React application with a Java Springboot server connected to a MySQL 
   - vsc-mybatis
   - ES7+ React/Redux/React-Native snippets
   - WSL (Windows with WSL Only)
-- Iterm2
-  - ohmyzsh
-    - powerlevel10k
+- *Mac Only* [Iterm2](https://iterm2.com/downloads.html)
+  - [ohmyzsh](https://ohmyz.sh/)
+    - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [Google Chrome](https://www.google.com/chrome)
 
 ## Getting Started
 You can check out the READMEs below for more information on each section
