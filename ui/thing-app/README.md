@@ -11,6 +11,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   - `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash`
 - Install Node
   - `nvm install node`
+- NOTE: To create a new react application you can run the following (don't do that for this project as the ui is already built)
+  - npx create-react-app
 
 ## Available Scripts
 
