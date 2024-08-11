@@ -2,6 +2,10 @@
 An example React application with a Java Springboot server connected to a MySQL database
 
 ## Getting Started
+
+### Installing core features
+
+### Parts of the App
 You can check out the READMEs below for more information on each section
   - [Database](database/README.md)
   - [Server](server/thingapp/README.md)
@@ -16,6 +20,9 @@ You can check out the READMEs below for more information on each section
   - vsc-mybatis
   - ES7+ React/Redux/React-Native snippets
   - WSL (Windows with WSL Only)
+- Iterm2
+  - ohmyzsh
+    - powerlevel10k
 
 ## TODO
 - update readme
