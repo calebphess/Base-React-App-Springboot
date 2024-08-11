@@ -1,16 +1,6 @@
 # Base-React-App-Springboot
 An example React application with a Java Springboot server connected to a MySQL database
 
-## Getting Started
-
-### Installing core features
-
-### Parts of the App
-You can check out the READMEs below for more information on each section
-  - [Database](database/README.md)
-  - [Server](server/thingapp/README.md)
-  - [UI ***WIP***](ui/thing-app/README.md)
-
 ## IDE Recommendations
 - VS Code
   - Extension Pack for Java
@@ -23,6 +13,12 @@ You can check out the READMEs below for more information on each section
 - Iterm2
   - ohmyzsh
     - powerlevel10k
+
+## Getting Started
+You can check out the READMEs below for more information on each section
+  - [Database](database/README.md)
+  - [Server](server/thingapp/README.md)
+  - [UI ***WIP***](ui/thing-app/README.md)
 
 ## TODO
 - update readme
