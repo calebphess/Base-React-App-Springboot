@@ -14,6 +14,7 @@ An example React application with a Java Springboot server connected to a MySQL 
   - [ohmyzsh](https://ohmyz.sh/)
     - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [Google Chrome](https://www.google.com/chrome)
+  - [Redux DevTools](https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
 
 ## Getting Started
 You can check out the READMEs below for more information on each section
